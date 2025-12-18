@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:silentmoon/app/configs/theme.dart';
 import 'package:silentmoon/components/my_textfeild.dart';
 import 'package:silentmoon/pages/introduction_page.dart';
+import 'package:silentmoon/pages/login_page.dart';
 import 'package:silentmoon/pages/user_welcome_page.dart';
 
 class SignupPage extends StatefulWidget {
@@ -19,6 +23,93 @@ class _SignupPageState extends State<SignupPage> {
   bool isChecked = false;
   bool isHovering = false;
   bool isHoveringg = false;
+
+  Future<void> signUpUser() async {
+    String username = usernameController.text.trim();
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+
+    if (username.isEmpty || email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("All fields are required")));
+      return;
+    }
+
+    if (!isChecked) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Please accept the Privacy Policy")),
+      );
+      return;
+    }
+
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+
+      String uid = userCredential.user!.uid;
+
+      await FirebaseFirestore.instance.collection('users').doc(uid).set({
+        'username': username,
+        'email': email,
+        'createdAt': DateTime.now(),
+      });
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const UserWelcomePage()),
+      );
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.message ?? "Signup failed")));
+    }
+  }
+
+  Future<void> signUpWithGoogle() async {
+  try {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+
+    final GoogleSignInAccount? googleUser =
+        await googleSignIn.signIn();
+
+    if (googleUser == null) return;
+
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    final UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    final User user = userCredential.user!;
+
+    final userRef =
+        FirebaseFirestore.instance.collection('users').doc(user.uid);
+
+    if (!(await userRef.get()).exists) {
+      await userRef.set({
+        'username': user.displayName ?? '',
+        'email': user.email ?? '',
+        'createdAt': DateTime.now(),
+        'authProvider': 'google',
+      });
+    }
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const UserWelcomePage()),
+    );
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Google sign-in failed')),
+    );
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +213,7 @@ class _SignupPageState extends State<SignupPage> {
                   padding: const EdgeInsets.only(top: 30),
                   child: GestureDetector(
                     onTap: () {
-                      
+                      signUpWithGoogle();
                     },
                     child: MouseRegion(
                       onEnter: (_) {
@@ -247,10 +338,10 @@ class _SignupPageState extends State<SignupPage> {
 
                 // get started button
                 Padding(
-                  padding: const EdgeInsets.only(top: 70),
+                  padding: const EdgeInsets.only(top: 60),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const UserWelcomePage()));
+                      signUpUser();
                     },
                     child: Container(
                       height: 60,
@@ -271,7 +362,33 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                 ),
 
-                const SizedBox(height: 60),
+                const SizedBox(height: 20),
+
+                // login link
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'ALREADY HAVE AN ACCOUNT?',
+                      style: TextStyle(color: ThemeConfigs.color6),
+                    ),
+
+                    const SizedBox(width: 5),
+
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (_) => const LoginPage()),
+                        );
+                      },
+                      child: const Text(
+                        'LOG IN',
+                        style: TextStyle(color: ThemeConfigs.color3),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

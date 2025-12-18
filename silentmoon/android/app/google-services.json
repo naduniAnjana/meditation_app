@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "645595366516",
+    "project_id": "silentmoon-mobile-app",
+    "storage_bucket": "silentmoon-mobile-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:645595366516:android:abce4fbd5e232eecc1fd21",
+        "android_client_info": {
+          "package_name": "com.example.silentmoon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "645595366516-7hfsubk2dhpn26i8ba95ridv8g973jss.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFCVFaM3_sVSdAW81R_lZYnjPRV-YVh1E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "645595366516-7hfsubk2dhpn26i8ba95ridv8g973jss.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

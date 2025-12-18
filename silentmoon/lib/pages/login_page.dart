@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: AnimatedContainer(
                         duration: const Duration(
                           milliseconds: 200,
-                        ), // Smooth transition
+                        ), 
                         height: 60,
                         width: 350,
                         decoration: BoxDecoration(
@@ -135,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: AnimatedContainer(
                         duration: const Duration(
                           milliseconds: 200,
-                        ), // Smooth transition
+                        ),
                         height: 60,
                         width: 350,
                         decoration: BoxDecoration(
@@ -209,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 15),
 
-                // get started button
+                // Login button
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: GestureDetector(
@@ -264,7 +264,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      'ALREADY HAVE AN ACCOUNT?',
+                      'DO NOT HAVE AN ACCOUNT?',
                       style: TextStyle(color: ThemeConfigs.color6),
                     ),
                     const SizedBox(width: 5),
