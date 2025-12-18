@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:silentmoon/app/configs/theme.dart';
 import 'package:silentmoon/components/my_textfeild.dart';
+import 'package:silentmoon/helpers/dialogbox_helper.dart';
 import 'package:silentmoon/pages/forgot_password.dart';
 import 'package:silentmoon/pages/introduction_page.dart';
 import 'package:silentmoon/pages/signup_page.dart';
@@ -20,6 +24,91 @@ class _LoginPageState extends State<LoginPage> {
   bool isChecked = false;
   bool isHovering = false;
   bool isHoveringg = false;
+
+  Future<void> signInWithEmailPassword() async {
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      DialogHelper.showErrorDialog(context, 'Please enter email and password.');
+      return;
+    }
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const UserWelcomePage()),
+      );
+    } on FirebaseAuthException catch (e) {
+      String message;
+
+      switch (e.code) {
+        case 'invalid-credential':
+          message = 'Incorrect email or password.';
+          break;
+        case 'invalid-email':
+          message = 'Invalid email address.';
+          break;
+        case 'user-disabled':
+          message = 'This account has been disabled.';
+          break;
+        default:
+          message = 'Login failed. Please try again.';
+      }
+
+      DialogHelper.showErrorDialog(context, message);
+    }
+  }
+
+  Future<void> signInWithGoogle() async {
+  try {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+
+    final GoogleSignInAccount? googleUser =
+        await googleSignIn.signIn();
+
+    if (googleUser == null) return;
+
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    final UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    final User user = userCredential.user!;
+
+    final userRef =
+        FirebaseFirestore.instance.collection('users').doc(user.uid);
+
+    if (!(await userRef.get()).exists) {
+      await userRef.set({
+        'username': user.displayName ?? '',
+        'email': user.email ?? '',
+        'createdAt': DateTime.now(),
+        'authProvider': 'google',
+      });
+    }
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const UserWelcomePage()),
+    );
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Google sign-in failed')),
+    );
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +209,9 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 30),
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      signInWithGoogle();
+                    },
                     child: MouseRegion(
                       onEnter: (_) {
                         setState(() {
@@ -214,12 +305,7 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.only(top: 20),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const UserWelcomePage(),
-                        ),
-                      );
+                      signInWithEmailPassword();
                     },
                     child: Container(
                       height: 60,
