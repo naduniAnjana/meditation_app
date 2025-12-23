@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:silentmoon/app/configs/theme.dart';
+import 'package:silentmoon/pages/music/meditation.dart';
 
 class MusicPage extends StatefulWidget {
   const MusicPage({super.key});
@@ -33,7 +34,7 @@ class _MusicPageState extends State<MusicPage> {
     {"image": 'assets/image4.jpg', "text": "Sleep Better"},
     {"image": 'assets/image5.jpg', "text": "Daily Gratitude"},
     {"image": 'assets/image6.jpg', "text": "Stress Relief"},
-    {"image": 'assets/image7.jpg', "text": "Stress Relief"},
+    {"image": 'assets/image7.jpg', "text": "Mind Reset"},
   ];
 
   @override
@@ -208,6 +209,49 @@ class _MusicPageState extends State<MusicPage> {
           const SizedBox(height: 15),
 
           // Two-Column Grid of Containers
+          // Expanded(
+          //   child: Padding(
+          //     padding: const EdgeInsets.symmetric(horizontal: 20),
+          //     child: MasonryGridView.builder(
+          //       physics: const ClampingScrollPhysics(),
+          //       gridDelegate:
+          //           const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+          //             crossAxisCount: 2,
+          //           ),
+          //       mainAxisSpacing: 15,
+          //       crossAxisSpacing: 15,
+          //       itemCount: containerData.length,
+          //       itemBuilder: (context, index) {
+          //         return Stack(
+          //           children: [
+          //             Container(
+          //               width: double.infinity,
+          //               height: containerHeights[index],
+          //               decoration: BoxDecoration(
+          //                 borderRadius: BorderRadius.circular(15),
+          //                 image: DecorationImage(
+          //                   image: AssetImage(containerData[index]["image"]!),
+          //                   fit: BoxFit.cover,
+          //                 ),
+          //               ),
+          //             ),
+          //             Align(
+          //               alignment: Alignment.bottomCenter,
+          //               child: Text(
+          //                 containerData[index]["text"]!,
+          //                 style: const TextStyle(
+          //                   fontSize: 14,
+          //                   fontWeight: FontWeight.bold,
+          //                   color: ThemeConfigs.color2,
+          //                 ),
+          //               ),
+          //             ),
+          //           ],
+          //         );
+          //       },
+          //     ),
+          //   ),
+          // ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -221,31 +265,94 @@ class _MusicPageState extends State<MusicPage> {
                 crossAxisSpacing: 15,
                 itemCount: containerData.length,
                 itemBuilder: (context, index) {
-                  return Stack(
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        height: containerHeights[index],
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          image: DecorationImage(
-                            image: AssetImage(containerData[index]["image"]!),
-                            fit: BoxFit.cover,
+                  return GestureDetector(
+                    onTap: () {
+                      // Navigate based on index
+                      switch (index) {
+                        case 0:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const Meditation(),
+                            ),
+                          );
+                          break;
+                        case 1:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const Meditation(),
+                            ),
+                          );
+                          break;
+                        case 2:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const Meditation(),
+                            ),
+                          );
+                          break;
+                        case 3:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const Meditation(),
+                            ),
+                          );
+                          break;
+                        case 4:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const Meditation(),
+                            ),
+                          );
+                          break;
+                        case 5:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const Meditation(),
+                            ),
+                          );
+                          break;
+                        case 6:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const Meditation(),
+                            ),
+                          );
+                          break;
+                      }
+                    },
+                    child: Stack(
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: containerHeights[index],
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: DecorationImage(
+                              image: AssetImage(containerData[index]["image"]!),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Text(
-                          containerData[index]["text"]!,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: ThemeConfigs.color2,
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Text(
+                            containerData[index]["text"]!,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: ThemeConfigs.color2,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   );
                 },
               ),

@@ -289,7 +289,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
 
               child: Padding(
-                padding: const EdgeInsets.only(top: 8, left: 15),
+                padding: const EdgeInsets.only(top: 6, left: 15),
                 child: Column(
                   children: [
                     InkWell(

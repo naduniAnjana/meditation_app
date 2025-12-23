@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:silentmoon/app/configs/theme.dart';
-
 class MeditatePage extends StatefulWidget {
   const MeditatePage({super.key});
 
