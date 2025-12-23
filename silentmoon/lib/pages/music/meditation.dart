@@ -1,7 +1,10 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:silentmoon/app/configs/theme.dart';
+import 'package:silentmoon/model/morning_model.dart';
 
+enum RepeatMode { off, all, one }
 class Meditation extends StatefulWidget {
   const Meditation({super.key});
 
@@ -10,11 +13,149 @@ class Meditation extends StatefulWidget {
 }
 
 class _MeditationState extends State<Meditation> {
-  double progress = 0.3;
+  double progress = 0.0;
   bool isPlaying = false;
-  
+
+  final AudioPlayer _audioPlayer = AudioPlayer();
+  int currentIndex = 0;
+
+  Duration position = Duration.zero;
+  Duration duration = Duration.zero;
+
+  RepeatMode repeatMode = RepeatMode.off;
+
+  final List<MorningModel> playlist = [
+    MorningModel(
+      title: "Morning Clarity",
+      artist: "JackCatorBooks",
+      image: "assets/images/morning/clarity.jpg",
+      audio: "assets/audios/morning/morning-clarity.mp3",
+      duration: "03:39",
+    ),
+    MorningModel(
+      title: "Early Morning Meditation",
+      artist: "Universe_Bella",
+      image: "assets/images/morning/early.jpg",
+      audio: "assets/audios/morning/early-morning.mp3",
+      duration: "02:56",
+    ),
+    MorningModel(
+      title: "Morning Meditation",
+      artist: "FASSounds",
+      image: "assets/images/morning/meditation.jpg",
+      audio: "assets/audios/morning/morning-meditation.mp3",
+      duration: "05:43",
+    ),
+    MorningModel(
+      title: "Morning Relaxing",
+      artist: "Onetent",
+      image: "assets/images/morning/relaxing.jpg",
+      audio: "assets/audios/morning/morning-relaxing.mp3",
+      duration: "05:52",
+    ),
+    MorningModel(
+      title: "Rainy Morning Meditation",
+      artist: "Siarhei_Korbut",
+      image: "assets/images/morning/rainy.jpg",
+      audio: "assets/audios/morning/rainy-morning.mp3",
+      duration: "05:00",
+    ),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Listen to current position
+    _audioPlayer.onPositionChanged.listen((Duration p) {
+      setState(() {
+        position = p;
+      });
+    });
+
+    // Listen to total duration
+    _audioPlayer.onDurationChanged.listen((Duration d) {
+      setState(() {
+        duration = d;
+      });
+    });
+
+    // Listen to audio completion
+    _audioPlayer.onPlayerComplete.listen((event) {
+      if (repeatMode == RepeatMode.one) {
+        playAudio(currentIndex);
+      } else if (repeatMode == RepeatMode.all) {
+        playNext();
+      } else {
+        setState(() {
+          isPlaying = false;
+          position = Duration.zero;
+        });
+      }
+    });
+  }
+
+  Future<void> playAudio(int index) async {
+    final track = playlist[index];
+
+    if (currentIndex != index) {
+      await _audioPlayer.stop();
+      currentIndex = index;
+      position = Duration.zero;
+      isPlaying = false;
+    }
+
+    if (isPlaying) {
+      await _audioPlayer.pause();
+    } else {
+      await _audioPlayer.play(
+        AssetSource(track.audio.replaceFirst('assets/', '')),
+      );
+    }
+
+    setState(() {
+      isPlaying = !isPlaying;
+    });
+  }
+
+  String formatTime(Duration d) {
+    final minutes = d.inMinutes.toString().padLeft(2, '0');
+    final seconds = (d.inSeconds % 60).toString().padLeft(2, '0');
+    return '$minutes:$seconds';
+  }
+
+  void playNext() {
+    int nextIndex = currentIndex + 1;
+    if (nextIndex >= playlist.length) nextIndex = 0;
+    playAudio(nextIndex);
+  }
+
+  void playPrevious() {
+    int prevIndex = currentIndex - 1;
+    if (prevIndex < 0) prevIndex = playlist.length - 1;
+    playAudio(prevIndex);
+  }
+
+   void toggleRepeat() {
+      setState(() {
+        switch (repeatMode) {
+          case RepeatMode.off:
+            repeatMode = RepeatMode.all;
+            break;
+          case RepeatMode.all:
+            repeatMode = RepeatMode.one;
+            break;
+          case RepeatMode.one:
+            repeatMode = RepeatMode.off;
+            break;
+        }
+      });
+    }
+
   @override
   Widget build(BuildContext context) {
+    final currentTrack = playlist[currentIndex];
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -31,7 +172,7 @@ class _MeditationState extends State<Meditation> {
             fontWeight: FontWeight.bold,
           ),
         ),
-      ), 
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -71,8 +212,8 @@ class _MeditationState extends State<Meditation> {
                           width: 100,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            image: const DecorationImage(
-                              image: AssetImage("assets/image1.png"),
+                            image: DecorationImage(
+                              image: AssetImage(currentTrack.image),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -80,8 +221,8 @@ class _MeditationState extends State<Meditation> {
                         const SizedBox(height: 15),
             
                         // Song Name
-                        const Text(
-                          "Morning Meditation",
+                        Text(
+                          currentTrack.title,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -91,8 +232,8 @@ class _MeditationState extends State<Meditation> {
                         const SizedBox(height: 8),
             
                         // Artist Name
-                        const Text(
-                          "Silent Moon",
+                        Text(
+                          currentTrack.artist,
                           style: TextStyle(
                             fontSize: 14, 
                             color: ThemeConfigs.color2
@@ -101,10 +242,13 @@ class _MeditationState extends State<Meditation> {
             
                         // Progress Bar
                         Slider(
-                          value: progress,
-                          onChanged: (value) {
+                          min: 0,
+                          max: duration.inSeconds.toDouble() > 0 ? duration.inSeconds.toDouble() : 1,
+                          value: position.inSeconds.toDouble().clamp(0, duration.inSeconds.toDouble()),
+                          onChanged: (value) async{
+                            await _audioPlayer.seek(Duration(seconds: value.toInt()));
                             setState(() {
-                              progress = value;
+                              position = Duration(seconds: value.toInt());
                             });
                           },
                           activeColor: ThemeConfigs.color2,
@@ -112,11 +256,14 @@ class _MeditationState extends State<Meditation> {
                         ),
             
                         // Time Duration
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.symmetric(horizontal: 22),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [Text("01:20"), Text("05:00")],
+                            children: [
+                              Text(formatTime(position)),
+                              Text(currentTrack.duration),
+                            ],
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -128,9 +275,15 @@ class _MeditationState extends State<Meditation> {
                             // Repeat
                             IconButton(
                               iconSize: 26,
-                              icon: const Icon(Icons.repeat),
-                              color: ThemeConfigs.color2,
-                              onPressed: () {},
+                              icon: Icon(
+                                repeatMode == RepeatMode.off
+                                    ? Icons.repeat 
+                                    : repeatMode == RepeatMode.all
+                                    ? Icons.repeat
+                                    : Icons.repeat_one,
+                                color: ThemeConfigs.color2,
+                              ),
+                              onPressed: toggleRepeat,
                             ),
                             const SizedBox(width: 25),
             
@@ -138,18 +291,14 @@ class _MeditationState extends State<Meditation> {
                             IconButton(
                               iconSize: 35,
                               icon: const Icon(Icons.skip_previous),
-                              onPressed: () {},
+                              onPressed: playPrevious,
                             ),
             
                             const SizedBox(width: 15),
             
                             // Play / Pause
                             GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  isPlaying = !isPlaying;
-                                });
-                              },
+                              onTap: () => playAudio(currentIndex),
                               child: Container(
                                 height: 40,
                                 width: 40,
@@ -178,7 +327,7 @@ class _MeditationState extends State<Meditation> {
                             IconButton(
                               iconSize: 35,
                               icon: const Icon(Icons.skip_next),
-                              onPressed: () {},
+                              onPressed: playNext, 
                             ),
                             const SizedBox(width: 25),
             
@@ -222,31 +371,26 @@ class _MeditationState extends State<Meditation> {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          playlistItem(
-                            color: const Color(0xFFDCF1FF),
-                            image: "assets/image1.png",
-                          ),
-                          const SizedBox(height: 12),
-                          playlistItem(
-                            color: const Color(0xFFDCF1FF),
-                            image: "assets/image2.png",
-                          ),
-                          const SizedBox(height: 12),
-                          playlistItem(
-                            color: const Color(0xFFDCF1FF),
-                            image: "assets/image2.png",
-                          ),
-                          const SizedBox(height: 12),
-                          playlistItem(
-                            color: const Color(0xFFDCF1FF),
-                            image: "assets/image2.png",
-                          ),
-                          const SizedBox(height: 12),
-                          playlistItem(
-                            color: const Color(0xFFDCF1FF),
-                            image: "assets/image2.png",
-                          ),
-                          const SizedBox(height: 40),
+                          ...List.generate(playlist.length, (index) {
+                            final item = playlist[index];
+                            final isCurrentPlaying =
+                                (index == currentIndex && isPlaying);
+
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 12),
+                              child: playlistItem(
+                                color: isCurrentPlaying
+                                    ? const Color.fromARGB(255, 241, 220, 255)
+                                    : ThemeConfigs.color30,
+                                image: item.image,
+                                title: item.title,
+                                artist: item.artist,
+                                duration: item.duration,
+                                index: index,
+                              ),
+                            );
+                          }),
+                          const SizedBox(height: 30), 
                         ],
                       ),
                     ),
@@ -263,9 +407,13 @@ class _MeditationState extends State<Meditation> {
   Widget playlistItem({
     required Color color,
     required String image,
+    required String title,
+    required String artist,
+    required String duration,
+    required int index,
   }) {
     return Container(
-      height: 90,
+      height: 80,
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(10),
@@ -278,7 +426,7 @@ class _MeditationState extends State<Meditation> {
         // ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(12),
         child: Row(
           children: [
             Container(
@@ -296,25 +444,24 @@ class _MeditationState extends State<Meditation> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text("Morning Meditation",
-                    style:
-                        TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
-                Text("Silent Moon",
-                    style:
-                        TextStyle(fontSize: 13, fontWeight: FontWeight.w400)),
-                Text("05:00", style: TextStyle(fontSize: 11)),
+              children: [
+                Text(title,
+                  style: const TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.w500)),
+              Text(artist,
+                  style: const TextStyle(
+                      fontSize: 13, fontWeight: FontWeight.w400)),
+              Text(duration, style: const TextStyle(fontSize: 11)),
               ],
             ),
             const Spacer(),
-            GestureDetector(
-              onTap: () {
-                setState(() { isPlaying = !isPlaying; });
-              },
-              child: Icon(
-                isPlaying ? Icons.pause : Icons.play_arrow,
-                size: 28,
+            IconButton(
+              icon: Icon(
+                isPlaying && currentIndex == index
+                    ? Icons.pause
+                    : Icons.play_arrow,
               ),
+              onPressed: () => playAudio(index),
             ),
           ],
         ),
