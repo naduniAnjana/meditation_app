@@ -34,7 +34,7 @@ class _UserWelcomePageState extends State<UserWelcomePage> {
                   
                   const SizedBox(width: 8),
                   
-                  Image.asset('assets/moon.png', width: 30, height: 30),
+                  Image.asset('assets/images/app/moon.png', width: 30, height: 30),
                   
                   const SizedBox(width: 8),
                   
@@ -91,7 +91,7 @@ class _UserWelcomePageState extends State<UserWelcomePage> {
             // image
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 70),
-              child: Image.asset('assets/medi.png', width: 300, height: 300),
+              child: Image.asset('assets/images/app/medi.png', width: 300, height: 300),
             ),
         
             // button

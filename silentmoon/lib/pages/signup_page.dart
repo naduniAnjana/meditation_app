@@ -184,7 +184,7 @@ class _SignupPageState extends State<SignupPage> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 30),
                                 child: Image.asset(
-                                  'assets/facebook.png',
+                                  'assets/images/app/facebook.png',
                                   width: 28,
                                   height: 28,
                                 ),
@@ -248,7 +248,7 @@ class _SignupPageState extends State<SignupPage> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 30),
                                 child: Image.asset(
-                                  'assets/google.png',
+                                  'assets/images/app/google.png',
                                   width: 28,
                                   height: 28,
                                 ),

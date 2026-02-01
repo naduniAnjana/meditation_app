@@ -35,7 +35,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
 
                 const SizedBox(width: 8),
 
-                Image.asset('assets/moon.png', width: 30, height: 30),
+                Image.asset('assets/images/app/moon.png', width: 30, height: 30),
 
                 const SizedBox(width: 8),
 
@@ -54,7 +54,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
             Padding(
               padding: const EdgeInsets.only(top: 40),
               child: Image.asset(
-                'assets/listening.png',
+                'assets/images/app/listening.png',
               ),
             ),
 

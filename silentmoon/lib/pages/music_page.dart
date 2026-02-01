@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:silentmoon/app/configs/theme.dart';
 import 'package:silentmoon/pages/music/meditation.dart';
 
@@ -11,30 +12,28 @@ class MusicPage extends StatefulWidget {
 }
 
 class _MusicPageState extends State<MusicPage> {
-  // Define a list of different icons with their labels
+
   final List<Map<String, dynamic>> menuItems = [
-    {"icon": Icons.wind_power, "label": "All"},
-    {"icon": Icons.favorite, "label": "My"},
-    {"icon": Icons.face, "label": "Anxious"},
-    {"icon": Icons.nightlight_round, "label": "Sleep"},
-    {"icon": Icons.child_care, "label": "Kids"},
-    {"icon": Icons.music_note, "label": "Music"},
-    {"icon": Icons.favorite, "label": "Love"},
+    {"icon": PhosphorIconsRegular.fan, "label": "All"},
+    {"icon": PhosphorIconsRegular.heartStraight, "label": "My"},
+    {"icon": PhosphorIconsRegular.smileyNervous, "label": "Anxious"},
+    {"icon": PhosphorIconsRegular.moon, "label": "Sleep"},
+    {"icon": PhosphorIconsRegular.target, "label": "Focus"},
+    {"icon": PhosphorIconsRegular.waves, "label": "Relax"},
   ];
 
   int selectedIndex = 0;
 
-  // List of container heights
   final List<double> containerHeights = [180, 120, 140, 200, 160, 220, 170];
 
   final List<Map<String, String>> containerData = [
-    {"image": 'assets/image1.png', "text": "Morning Meditation"},
-    {"image": 'assets/image2.png', "text": "Deep Breathing"},
-    {"image": 'assets/image3.jpg', "text": "Calm Your Mind"},
-    {"image": 'assets/image4.jpg', "text": "Sleep Better"},
-    {"image": 'assets/image5.jpg', "text": "Daily Gratitude"},
-    {"image": 'assets/image6.jpg', "text": "Stress Relief"},
-    {"image": 'assets/image7.jpg', "text": "Mind Reset"},
+    {"image": 'assets/images/app/image1.png', "text": "Morning Meditation"},
+    {"image": 'assets/images/app/image2.png', "text": "Deep Breathing"},
+    {"image": 'assets/images/app/image3.jpg', "text": "Calm Your Mind"},
+    {"image": 'assets/images/app/image4.jpg', "text": "Sleep Better"},
+    {"image": 'assets/images/app/image5.jpg', "text": "Daily Gratitude"},
+    {"image": 'assets/images/app/image6.jpg', "text": "Stress Relief"},
+    {"image": 'assets/images/app/image7.jpg', "text": "Mind Reset"},
   ];
 
   @override
@@ -80,55 +79,61 @@ class _MusicPageState extends State<MusicPage> {
               itemCount: menuItems.length,
               itemBuilder: (context, index) {
                 bool isSelected = selectedIndex == index;
+                final bool isLastItem = index == menuItems.length - 1;
 
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedIndex = index;
-                    });
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Column(
-                      children: [
-                        // Icon Container
-                        Container(
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          width: 55,
-                          height: 55,
-                          decoration: BoxDecoration(
-                            color:
-                                isSelected
-                                    ? ThemeConfigs.color3
-                                    : ThemeConfigs.color21,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Center(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10),
-                              child: Icon(
-                                menuItems[index]["icon"],
-                                color: ThemeConfigs.color2,
+                return Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = index;
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Column(
+                          children: [
+                            // Icon Container
+                            Container(
+                              margin: const EdgeInsets.symmetric(vertical: 10),
+                              width: 55,
+                              height: 55,
+                              decoration: BoxDecoration(
+                                color:
+                                    isSelected
+                                        ? ThemeConfigs.color3
+                                        : ThemeConfigs.color21,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Center(
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 10),
+                                  child: Icon(
+                                    menuItems[index]["icon"],
+                                    color: ThemeConfigs.color2,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                    
+                            // Text Label
+                            Text(
+                              menuItems[index]["label"],
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color:
+                                    isSelected
+                                        ? ThemeConfigs.color14
+                                        : ThemeConfigs.color21,
+                              ),
+                            ),
+                          ],
                         ),
-
-                        // Text Label
-                        Text(
-                          menuItems[index]["label"],
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color:
-                                isSelected
-                                    ? ThemeConfigs.color14
-                                    : ThemeConfigs.color21,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
+                    if (isLastItem) const SizedBox(width: 20),
+                  ],
                 );
               },
             ),
@@ -142,7 +147,7 @@ class _MusicPageState extends State<MusicPage> {
               height: 110,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/Daily.jpg'),
+                  image: AssetImage('assets/images/app/Daily.jpg'),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -206,124 +211,86 @@ class _MusicPageState extends State<MusicPage> {
             ),
           ),
 
-          const SizedBox(height: 15),
+          const SizedBox(height: 30),
 
           // Two-Column Grid of Containers
-          // Expanded(
-          //   child: Padding(
-          //     padding: const EdgeInsets.symmetric(horizontal: 20),
-          //     child: MasonryGridView.builder(
-          //       physics: const ClampingScrollPhysics(),
-          //       gridDelegate:
-          //           const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-          //             crossAxisCount: 2,
-          //           ),
-          //       mainAxisSpacing: 15,
-          //       crossAxisSpacing: 15,
-          //       itemCount: containerData.length,
-          //       itemBuilder: (context, index) {
-          //         return Stack(
-          //           children: [
-          //             Container(
-          //               width: double.infinity,
-          //               height: containerHeights[index],
-          //               decoration: BoxDecoration(
-          //                 borderRadius: BorderRadius.circular(15),
-          //                 image: DecorationImage(
-          //                   image: AssetImage(containerData[index]["image"]!),
-          //                   fit: BoxFit.cover,
-          //                 ),
-          //               ),
-          //             ),
-          //             Align(
-          //               alignment: Alignment.bottomCenter,
-          //               child: Text(
-          //                 containerData[index]["text"]!,
-          //                 style: const TextStyle(
-          //                   fontSize: 14,
-          //                   fontWeight: FontWeight.bold,
-          //                   color: ThemeConfigs.color2,
-          //                 ),
-          //               ),
-          //             ),
-          //           ],
-          //         );
-          //       },
-          //     ),
-          //   ),
-          // ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: MasonryGridView.builder(
-                physics: const ClampingScrollPhysics(),
-                gridDelegate:
-                    const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                    ),
-                mainAxisSpacing: 15,
-                crossAxisSpacing: 15,
-                itemCount: containerData.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
+            child: MasonryGridView.builder(
+              padding: EdgeInsets.zero,
+              physics: const ClampingScrollPhysics(),
+              gridDelegate:
+                  const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
+              mainAxisSpacing: 15,
+              crossAxisSpacing: 15,
+              itemCount: containerData.length,
+              itemBuilder: (context, index) {
+                final bool isLeftColumn = index % 2 == 0;
+                return Padding(
+                  padding: EdgeInsets.only(
+                    left: isLeftColumn? 8: 0, 
+                    right: isLeftColumn? 0: 8, 
+                  ),
+                  child: GestureDetector(
                     onTap: () {
                       // Navigate based on index
                       switch (index) {
                         case 0:
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const Meditation(),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (_) => const Meditation(),
+                          //   ),
+                          // );
                           break;
                         case 1:
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const Meditation(),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (_) => const Meditation(),
+                          //   ),
+                          // );
                           break;
                         case 2:
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const Meditation(),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (_) => const Meditation(),
+                          //   ),
+                          // );
                           break;
                         case 3:
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const Meditation(),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (_) => const Meditation(),
+                          //   ),
+                          // );
                           break;
                         case 4:
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const Meditation(),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (_) => const Meditation(),
+                          //   ),
+                          // );
                           break;
                         case 5:
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const Meditation(),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (_) => const Meditation(),
+                          //   ),
+                          // );
                           break;
                         case 6:
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const Meditation(),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (_) => const Meditation(),
+                          //   ),
+                          // );
                           break;
                       }
                     },
@@ -353,9 +320,9 @@ class _MusicPageState extends State<MusicPage> {
                         ),
                       ],
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
           ),
         ],

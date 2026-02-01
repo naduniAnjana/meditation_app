@@ -32,7 +32,7 @@ class _RecomendedPageState extends State<RecomendedPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // image
-                    Image.asset('assets/focus.png', width: 350, height: 90),
+                    Image.asset('assets/images/app/focus.png', width: 350, height: 90),
 
                     const SizedBox(height: 10),
 
@@ -80,7 +80,7 @@ class _RecomendedPageState extends State<RecomendedPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // image
-                    Image.asset('assets/happiness.png', width: 300, height: 90),
+                    Image.asset('assets/images/app/happiness.png', width: 300, height: 90),
 
                     const SizedBox(height: 10),
 
@@ -128,7 +128,7 @@ class _RecomendedPageState extends State<RecomendedPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // image
-                    Image.asset('assets/focus.png', width: 350, height: 90),
+                    Image.asset('assets/images/app/focus.png', width: 350, height: 90),
 
                     const SizedBox(height: 10),
 

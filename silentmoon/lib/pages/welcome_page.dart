@@ -21,7 +21,7 @@ class _WelcomePageState extends State<WelcomePage> {
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/background.jpg'),
+                  image: AssetImage('assets/images/app/background.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -59,7 +59,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 // image
                 Padding(
                   padding: const EdgeInsets.only(left: 30, top: 80, bottom: 60),
-                  child: Image.asset('assets/birds.png'),
+                  child: Image.asset('assets/images/app/birds.png'),
                 ),
 
                 // button

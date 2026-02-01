@@ -24,14 +24,14 @@ class _SleepPageState extends State<SleepPage> {
   int selectedIndex = 0;
 
   final List<Map<String, String>> containerData = [
-    {"image": 'assets/sleep1.png'},
-    {"image": 'assets/sleep2.png'},
-    {"image": 'assets/sleep3.jpg'},
-    {"image": 'assets/sleep4.png'},
-    {"image": 'assets/sleep5.jpg'},
-    {"image": 'assets/sleep6.jpg'},
-    {"image": 'assets/sleep7.png'},
-    {"image": 'assets/sleep8.png'},
+    {"image": 'assets/images/app/sleep1.png'},
+    {"image": 'assets/images/app/sleep2.png'},
+    {"image": 'assets/images/app/sleep3.jpg'},
+    {"image": 'assets/images/app/sleep4.png'},
+    {"image": 'assets/images/app/sleep5.jpg'},
+    {"image": 'assets/images/app/sleep6.jpg'},
+    {"image": 'assets/images/app/sleep7.png'},
+    {"image": 'assets/images/app/sleep8.png'},
   ];
 
   final List<Map<String, String>> containerText = [
@@ -56,7 +56,7 @@ class _SleepPageState extends State<SleepPage> {
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/night.jpg'),
+                  image: AssetImage('assets/images/app/night.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -167,7 +167,7 @@ class _SleepPageState extends State<SleepPage> {
                     height: 220,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/background4.jpg'),
+                        image: AssetImage('assets/images/app/background4.jpg'),
                         fit: BoxFit.cover,
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(15)),

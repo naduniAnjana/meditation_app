@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                Image.asset('assets/moon.png', width: 30, height: 30),
+                Image.asset('assets/images/app/moon.png', width: 30, height: 30),
                 const SizedBox(width: 8),
                 const Text(
                   'Moon',
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                         Padding(
                           padding: const EdgeInsets.only(left: 55),
                           child: Image.asset(
-                            'assets/basic.png',
+                            'assets/images/app/basic.png',
                             width: 90,
                             height: 90,
                           ),
@@ -171,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                         Padding(
                           padding: const EdgeInsets.only(left: 55),
                           child: Image.asset(
-                            'assets/music.png',
+                            'assets/images/app/music.png',
                             width: 85,
                             height: 85,
                           ),
@@ -248,7 +248,7 @@ class _HomePageState extends State<HomePage> {
               height: 120,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/background1.jpg'),
+                  image: AssetImage('assets/images/app/background1.jpg'),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(15)),
