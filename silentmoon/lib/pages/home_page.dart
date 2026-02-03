@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          const SizedBox(height: 30),
+          const SizedBox(height: 20),
 
           // good morning message with the name
           const Padding(
@@ -71,166 +71,149 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          const SizedBox(height: 30),
+          const SizedBox(height: 20),
 
           // basics and relaxation containers
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  width: 177,
-                  height: 200,
-                  decoration: const BoxDecoration(
-                    color: ThemeConfigs.color3,
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 5, left: 12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // image
-                        Padding(
-                          padding: const EdgeInsets.only(left: 55),
-                          child: Image.asset(
-                            'assets/images/app/basic.png',
-                            width: 90,
-                            height: 90,
-                          ),
-                        ),
-                        //topic
-                        const Text(
-                          "Basics",
-                          style: TextStyle(
-                            color: ThemeConfigs.color2,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-
-                        // course text
-                        const Text(
-                          "COURSE",
-                          style: TextStyle(color: ThemeConfigs.color15),
-                        ),
-
-                        const SizedBox(height: 16),
-
-                        // time
-                        Row(
-                          children: [
-                            const Text(
-                              "3-10 MIN",
-                              style: TextStyle(color: ThemeConfigs.color15),
+                // Basics container
+                Expanded(
+                  child: Container(
+                    height: 200,
+                    decoration: const BoxDecoration(
+                      color: ThemeConfigs.color3,
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 5, left: 12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 55),
+                            child: Image.asset(
+                              'assets/images/app/basic.png',
+                              width: 90,
+                              height: 90,
                             ),
-
-                            const SizedBox(width: 20),
-
-                            //start buuton
-                            GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                height: 30,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                  color: ThemeConfigs.color2,
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                child: const Center(
-                                  child: Text(
-                                    "START",
-                                    style: TextStyle(
-                                      color: ThemeConfigs.color14,
-                                      fontSize: 10,
+                          ),
+                          const Text(
+                            "Basics",
+                            style: TextStyle(
+                              color: ThemeConfigs.color2,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                          const Text(
+                            "COURSE",
+                            style: TextStyle(color: ThemeConfigs.color15),
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            children: [
+                              const Text(
+                                "3-10 MIN",
+                                style: TextStyle(color: ThemeConfigs.color15),
+                              ),
+                              const SizedBox(width: 20),
+                              GestureDetector(
+                                onTap: () {},
+                                child: Container(
+                                  height: 30,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                    color: ThemeConfigs.color2,
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      "START",
+                                      style: TextStyle(
+                                        color: ThemeConfigs.color14,
+                                        fontSize: 10,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                Container(
-                  width: 177,
-                  height: 200,
-                  decoration: const BoxDecoration(
-                    color: ThemeConfigs.color16,
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 5, left: 12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // image
-                        Padding(
-                          padding: const EdgeInsets.only(left: 55),
-                          child: Image.asset(
-                            'assets/images/app/music.png',
-                            width: 85,
-                            height: 85,
-                          ),
-                        ),
 
-                        const SizedBox(height: 5),
-
-                        //topic
-                        const Text(
-                          "Relaxation",
-                          style: TextStyle(
-                            color: ThemeConfigs.color2,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-
-                        // course text
-                        const Text(
-                          "MUSIC",
-                          style: TextStyle(color: ThemeConfigs.color15),
-                        ),
-
-                        const SizedBox(height: 16),
-
-                        // time
-                        Row(
-                          children: [
-                            const Text(
-                              "3-10 MIN",
-                              style: TextStyle(color: ThemeConfigs.color15),
+                const SizedBox(width: 20),
+                // Relaxation container
+                Expanded(
+                  child: Container(
+                    height: 200,
+                    decoration: const BoxDecoration(
+                      color: ThemeConfigs.color16,
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 5, left: 12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 55),
+                            child: Image.asset(
+                              'assets/images/app/music.png',
+                              width: 85,
+                              height: 85,
                             ),
-
-                            const SizedBox(width: 20),
-
-                            //start buuton
-                            GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                height: 30,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                  color: ThemeConfigs.color2,
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                child: const Center(
-                                  child: Text(
-                                    "START",
-                                    style: TextStyle(
-                                      color: ThemeConfigs.color14,
-                                      fontSize: 10,
+                          ),
+                          const SizedBox(height: 5),
+                          const Text(
+                            "Relaxation",
+                            style: TextStyle(
+                              color: ThemeConfigs.color2,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                          const Text(
+                            "MUSIC",
+                            style: TextStyle(color: ThemeConfigs.color15),
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            children: [
+                              const Text(
+                                "3-10 MIN",
+                                style: TextStyle(color: ThemeConfigs.color15),
+                              ),
+                              const SizedBox(width: 20),
+                              GestureDetector(
+                                onTap: () {},
+                                child: Container(
+                                  height: 30,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                    color: ThemeConfigs.color2,
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      "START",
+                                      style: TextStyle(
+                                        color: ThemeConfigs.color14,
+                                        fontSize: 10,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -245,7 +228,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Container(
               width: 400,
-              height: 120,
+              height: 110,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/images/app/background1.jpg'),
@@ -313,7 +296,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          const SizedBox(height: 35),
+          const SizedBox(height: 20),
 
           // recommended text
           const Padding(
