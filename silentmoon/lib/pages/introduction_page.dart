@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:silentmoon/app/configs/theme.dart';
 import 'package:silentmoon/pages/login_page.dart';
 import 'package:silentmoon/pages/signup_page.dart';
+import 'package:silentmoon/pages/user_welcome_page.dart';
 
 class IntroductionPage extends StatefulWidget {
   const IntroductionPage({super.key});
@@ -94,7 +95,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => const SignupPage()));
+                          builder: (_) => const UserWelcomePage()));
                 },
                 child: Container(
                   height: 60,

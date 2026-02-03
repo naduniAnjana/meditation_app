@@ -212,8 +212,8 @@ class _SignupPageState extends State<SignupPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 30),
                   child: GestureDetector(
-                    onTap: () {
-                      signUpWithGoogle();
+                    onTap: () async {
+                      await signUpWithGoogle();
                     },
                     child: MouseRegion(
                       onEnter: (_) {
@@ -340,8 +340,8 @@ class _SignupPageState extends State<SignupPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 60),
                   child: GestureDetector(
-                    onTap: () {
-                      signUpUser();
+                    onTap: () async {
+                      await signUpUser();
                     },
                     child: Container(
                       height: 60,

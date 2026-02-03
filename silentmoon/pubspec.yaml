@@ -23,6 +23,17 @@ dependencies:
   # sign_in_with_apple: ^7.0.1
   phosphor_flutter: ^2.1.0
 
+  # For audio recording
+  record: ^6.1.1
+  path_provider: ^2.1.1
+
+  # tflite_flutter: ^0.12.1
+
+  flutter_tts: ^4.2.5
+  permission_handler: ^12.0.1
+
+  http: ^1.6.0
+
   # audioplayers: ^6.5.1
 
 dev_dependencies:
@@ -39,6 +50,7 @@ flutter:
      - assets/images/app/
      - assets/images/morning/
      - assets/audios/morning/
+     - assets/models/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
