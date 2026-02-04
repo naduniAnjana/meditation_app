@@ -223,74 +223,69 @@ class _MusicPageState extends State<MusicPage> {
                     crossAxisCount: 2,
                   ),
               mainAxisSpacing: 15,
-              crossAxisSpacing: 15,
               itemCount: containerData.length,
               itemBuilder: (context, index) {
-                final bool isLeftColumn = index % 2 == 0;
                 return Padding(
-                  padding: EdgeInsets.only(
-                    left: isLeftColumn? 8: 0, 
-                    right: isLeftColumn? 0: 8, 
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: GestureDetector(
                     onTap: () {
                       // Navigate based on index
                       switch (index) {
                         case 0:
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (_) => const Meditation(),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const Meditation(),
+                            ),
+                          );
                           break;
                         case 1:
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (_) => const Meditation(),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const Meditation(),
+                            ),
+                          );
                           break;
                         case 2:
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (_) => const Meditation(),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const Meditation(),
+                            ),
+                          );
                           break;
                         case 3:
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (_) => const Meditation(),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const Meditation(),
+                            ),
+                          );
                           break;
                         case 4:
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (_) => const Meditation(),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const Meditation(),
+                            ),
+                          );
                           break;
                         case 5:
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (_) => const Meditation(),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const Meditation(),
+                            ),
+                          );
                           break;
                         case 6:
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (_) => const Meditation(),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const Meditation(),
+                            ),
+                          );
                           break;
                       }
                     },

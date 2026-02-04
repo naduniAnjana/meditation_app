@@ -31,4 +31,5 @@ class ThemeConfigs {
   static const color28 = Color(0xFFF4F4F4);
   static const color29 = Color(0xFFA3E7FF);
   static const color30 = Color(0xFFDCF1FF);
+  static const color31 = Color(0xFFFF5252);
 }
