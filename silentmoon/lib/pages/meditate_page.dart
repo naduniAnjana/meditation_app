@@ -136,13 +136,13 @@ class _MeditatePageState extends State<MeditatePage> {
                 style: TextStyle(color: ThemeConfigs.color25),
               ),
             ),
-            const SizedBox(height: 90),
+            const SizedBox(height: 50),
             // Status Text
             Text(
               _status,
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: ThemeConfigs.color20),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 30),
 
             // Animated Mic/Stop Button
             GestureDetector(
@@ -171,7 +171,7 @@ class _MeditatePageState extends State<MeditatePage> {
                 ),
               ),
 
-            const SizedBox(height: 50),
+            const SizedBox(height: 10),
 
             // Lottie animation below mic
             Lottie.asset(
