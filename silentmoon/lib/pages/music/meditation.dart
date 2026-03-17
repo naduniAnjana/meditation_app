@@ -7,7 +7,14 @@ import 'package:silentmoon/model/morning_model.dart';
 enum RepeatMode { off, all, one }
 
 class Meditation extends StatefulWidget {
-  const Meditation({super.key});
+  final List<MorningModel> playlist;
+  final String title;
+
+  const Meditation({
+    super.key, 
+    required this.playlist, 
+    required this.title
+  });
 
   @override
   State<Meditation> createState() => _MeditationState();
@@ -25,47 +32,12 @@ class _MeditationState extends State<Meditation> {
 
   RepeatMode repeatMode = RepeatMode.off;
 
-  final List<MorningModel> playlist = [
-    MorningModel(
-      title: "Morning Clarity",
-      artist: "JackCatorBooks",
-      image: "assets/images/morning/clarity.jpg",
-      audio: "assets/audios/morning/morning-clarity.mp3",
-      duration: "03:39",
-    ),
-    MorningModel(
-      title: "Early Morning Meditation",
-      artist: "Universe_Bella",
-      image: "assets/images/morning/early.jpg",
-      audio: "assets/audios/morning/early-morning.mp3",
-      duration: "02:56",
-    ),
-    MorningModel(
-      title: "Morning Meditation",
-      artist: "FASSounds",
-      image: "assets/images/morning/meditation.jpg",
-      audio: "assets/audios/morning/morning-meditation.mp3",
-      duration: "05:43",
-    ),
-    MorningModel(
-      title: "Morning Relaxing",
-      artist: "Onetent",
-      image: "assets/images/morning/relaxing.jpg",
-      audio: "assets/audios/morning/morning-relaxing.mp3",
-      duration: "05:52",
-    ),
-    MorningModel(
-      title: "Rainy Morning Meditation",
-      artist: "Siarhei_Korbut",
-      image: "assets/images/morning/rainy.jpg",
-      audio: "assets/audios/morning/rainy-morning.mp3",
-      duration: "05:00",
-    ),
-  ];
+  late List<MorningModel> playlist;
 
   @override
   void initState() {
     super.initState();
+    playlist = widget.playlist;
 
     _audioPlayer.positionStream.listen((p) {
       setState(() => position = p);
@@ -168,7 +140,7 @@ class _MeditationState extends State<Meditation> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'Now Playing',
+          widget.title,
           style: TextStyle(
             color: ThemeConfigs.color19,
             fontSize: 20,

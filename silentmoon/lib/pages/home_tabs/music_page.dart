@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:silentmoon/app/configs/theme.dart';
+import 'package:silentmoon/model/morning_model.dart';
 import 'package:silentmoon/pages/music/meditation.dart';
 
 class MusicPage extends StatefulWidget {
@@ -12,29 +12,124 @@ class MusicPage extends StatefulWidget {
 }
 
 class _MusicPageState extends State<MusicPage> {
-
-  final List<Map<String, dynamic>> menuItems = [
-    {"icon": PhosphorIconsRegular.fan, "label": "All"},
-    {"icon": PhosphorIconsRegular.heartStraight, "label": "My"},
-    {"icon": PhosphorIconsRegular.smileyNervous, "label": "Anxious"},
-    {"icon": PhosphorIconsRegular.moon, "label": "Sleep"},
-    {"icon": PhosphorIconsRegular.target, "label": "Focus"},
-    {"icon": PhosphorIconsRegular.waves, "label": "Relax"},
-  ];
+  late List<Map<String, dynamic>> containerData;
 
   int selectedIndex = 0;
 
   final List<double> containerHeights = [180, 120, 140, 200, 160, 220, 170];
 
-  final List<Map<String, String>> containerData = [
-    {"image": 'assets/images/app/image1.png', "text": "Morning Meditation"},
-    {"image": 'assets/images/app/image2.png', "text": "Deep Breathing"},
-    {"image": 'assets/images/app/image3.jpg', "text": "Calm Your Mind"},
-    {"image": 'assets/images/app/image4.jpg', "text": "Sleep Better"},
-    {"image": 'assets/images/app/image5.jpg', "text": "Daily Gratitude"},
-    {"image": 'assets/images/app/image6.jpg', "text": "Stress Relief"},
-    {"image": 'assets/images/app/image7.jpg', "text": "Mind Reset"},
+  final List<MorningModel> morningMeditation = [
+    MorningModel(
+      title: "Morning Clarity",
+      artist: "JackCatorBooks",
+      image: "assets/images/morning/clarity.jpg",
+      audio: "assets/audios/morning/morning-clarity.mp3",
+      duration: "03:39",
+    ),
+    MorningModel(
+      title: "Early Morning Meditation",
+      artist: "Universe_Bella",
+      image: "assets/images/morning/early.jpg",
+      audio: "assets/audios/morning/early-morning.mp3",
+      duration: "02:56",
+    ),
+    MorningModel(
+      title: "Morning Meditation",
+      artist: "FASSounds",
+      image: "assets/images/morning/meditation.jpg",
+      audio: "assets/audios/morning/morning-meditation.mp3",
+      duration: "05:43",
+    ),
+    MorningModel(
+      title: "Morning Relaxing",
+      artist: "Onetent",
+      image: "assets/images/morning/relaxing.jpg",
+      audio: "assets/audios/morning/morning-relaxing.mp3",
+      duration: "05:52",
+    ),
+    MorningModel(
+      title: "Rainy Morning Meditation",
+      artist: "Siarhei_Korbut",
+      image: "assets/images/morning/rainy.jpg",
+      audio: "assets/audios/morning/rainy-morning.mp3",
+      duration: "05:00",
+    ),
   ];
+
+  final List<MorningModel> deepBreathing = [
+    MorningModel(
+      title: "Early Morning Meditation",
+      artist: "Universe_Bella",
+      image: "assets/images/morning/early.jpg",
+      audio: "assets/audios/morning/early-morning.mp3",
+      duration: "02:56",
+    ),
+  ];
+
+  final List<MorningModel> sleepBetter = [
+    MorningModel(
+      title: "Morning Meditation",
+      artist: "FASSounds",
+      image: "assets/images/morning/meditation.jpg",
+      audio: "assets/audios/morning/morning-meditation.mp3",
+      duration: "05:43",
+    ),
+  ];
+
+  final List<MorningModel> calmMind = [
+    MorningModel(
+      title: "Morning Relaxing",
+      artist: "Onetent",
+      image: "assets/images/morning/relaxing.jpg",
+      audio: "assets/audios/morning/morning-relaxing.mp3",
+      duration: "05:52",
+    ),
+  ];
+
+  final List<MorningModel> dailyGratitude = [
+    MorningModel(
+      title: "Rainy Morning Meditation",
+      artist: "Siarhei_Korbut",
+      image: "assets/images/morning/rainy.jpg",
+      audio: "assets/audios/morning/rainy-morning.mp3",
+      duration: "05:00",
+    ),
+  ];
+
+  final List<MorningModel> stressRelief = [
+    MorningModel(
+      title: "Rainy Morning Meditation",
+      artist: "Siarhei_Korbut",
+      image: "assets/images/morning/rainy.jpg",
+      audio: "assets/audios/morning/rainy-morning.mp3",
+      duration: "05:00",
+    ),
+  ];
+
+  final List<MorningModel> mindReset = [
+    MorningModel(
+      title: "Rainy Morning Meditation",
+      artist: "Siarhei_Korbut",
+      image: "assets/images/morning/rainy.jpg",
+      audio: "assets/audios/morning/rainy-morning.mp3",
+      duration: "05:00",
+    ),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    containerData = [
+      {"image": 'assets/images/app/image1.png',"text": "Morning Meditation","playlist": morningMeditation,},
+      {"image": 'assets/images/app/image2.png',"text": "Deep Breathing","playlist": deepBreathing,},
+      {"image": 'assets/images/app/image3.jpg',"text": "Calm Your Mind","playlist": calmMind,},
+      {"image": 'assets/images/app/image4.jpg',"text": "Sleep Better","playlist": sleepBetter,},
+      {"image": 'assets/images/app/image5.jpg',"text": "Daily Gratitude","playlist": dailyGratitude,},
+      {"image": 'assets/images/app/image6.jpg',"text": "Stress Relief","playlist": stressRelief,},
+      {"image": 'assets/images/app/image7.jpg',"text": "Mind Reset","playlist": mindReset,},
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,77 +162,7 @@ class _MusicPageState extends State<MusicPage> {
               style: TextStyle(color: ThemeConfigs.color20),
             ),
           ),
-
           const SizedBox(height: 18),
-
-          // Menu Bar
-          // SizedBox(
-          //   height: 100,
-          //   width: double.infinity,
-          //   child: ListView.builder(
-          //     scrollDirection: Axis.horizontal,
-          //     itemCount: menuItems.length,
-          //     itemBuilder: (context, index) {
-          //       bool isSelected = selectedIndex == index;
-          //       final bool isLastItem = index == menuItems.length - 1;
-
-          //       return Row(
-          //         children: [
-          //           GestureDetector(
-          //             onTap: () {
-          //               setState(() {
-          //                 selectedIndex = index;
-          //               });
-          //             },
-          //             child: Padding(
-          //               padding: const EdgeInsets.only(left: 20),
-          //               child: Column(
-          //                 children: [
-          //                   // Icon Container
-          //                   Container(
-          //                     margin: const EdgeInsets.symmetric(vertical: 10),
-          //                     width: 55,
-          //                     height: 55,
-          //                     decoration: BoxDecoration(
-          //                       color:
-          //                           isSelected
-          //                               ? ThemeConfigs.color3
-          //                               : ThemeConfigs.color21,
-          //                       borderRadius: BorderRadius.circular(20),
-          //                     ),
-          //                     child: Center(
-          //                       child: Padding(
-          //                         padding: EdgeInsets.symmetric(vertical: 10),
-          //                         child: Icon(
-          //                           menuItems[index]["icon"],
-          //                           color: ThemeConfigs.color2,
-          //                         ),
-          //                       ),
-          //                     ),
-          //                   ),
-                    
-          //                   // Text Label
-          //                   Text(
-          //                     menuItems[index]["label"],
-          //                     style: TextStyle(
-          //                       fontSize: 14,
-          //                       fontWeight: FontWeight.w500,
-          //                       color:
-          //                           isSelected
-          //                               ? ThemeConfigs.color14
-          //                               : ThemeConfigs.color21,
-          //                     ),
-          //                   ),
-          //                 ],
-          //               ),
-          //             ),
-          //           ),
-          //           if (isLastItem) const SizedBox(width: 20),
-          //         ],
-          //       );
-          //     },
-          //   ),
-          // ),
 
           // Daily Calm Container
           Padding(
@@ -188,8 +213,7 @@ class _MusicPageState extends State<MusicPage> {
 
                     // Button
                     GestureDetector(
-                      onTap: () {
-                      },
+                      onTap: () {},
                       child: Container(
                         height: 40,
                         width: 40,
@@ -229,65 +253,15 @@ class _MusicPageState extends State<MusicPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: GestureDetector(
                     onTap: () {
-                      // Navigate based on index
-                      switch (index) {
-                        case 0:
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const Meditation(),
-                            ),
-                          );
-                          break;
-                        case 1:
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const Meditation(),
-                            ),
-                          );
-                          break;
-                        case 2:
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const Meditation(),
-                            ),
-                          );
-                          break;
-                        case 3:
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const Meditation(),
-                            ),
-                          );
-                          break;
-                        case 4:
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const Meditation(),
-                            ),
-                          );
-                          break;
-                        case 5:
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const Meditation(),
-                            ),
-                          );
-                          break;
-                        case 6:
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const Meditation(),
-                            ),
-                          );
-                          break;
-                      }
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => Meditation(
+                            title: containerData[index]["text"],
+                            playlist: containerData[index]["playlist"],
+                          ),
+                        ),
+                      );
                     },
                     child: Stack(
                       children: [
