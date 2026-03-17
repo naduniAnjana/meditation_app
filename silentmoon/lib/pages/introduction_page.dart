@@ -95,7 +95,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => const UserWelcomePage()));
+                          builder: (_) => const SignupPage()));
                 },
                 child: Container(
                   height: 60,

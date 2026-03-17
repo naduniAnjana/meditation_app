@@ -337,7 +337,7 @@ class _MeditationState extends State<Meditation> {
                               icon: const Icon(Icons.skip_next),
                               onPressed: playNext,
                             ),
-                            const SizedBox(width: 25),
+                            const SizedBox(width: 5),
 
                             // Favorite
                             IconButton(

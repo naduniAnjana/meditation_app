@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:silentmoon/app/configs/theme.dart';
-import 'package:silentmoon/pages/home_page.dart';
-import 'package:silentmoon/pages/meditate_page.dart';
-import 'package:silentmoon/pages/music_page.dart';
-import 'package:silentmoon/pages/profile_page.dart';
-import 'package:silentmoon/pages/sleep_page.dart';
+import 'package:silentmoon/pages/home_tabs/home_page.dart';
+import 'package:silentmoon/pages/home_tabs/meditate_page.dart';
+import 'package:silentmoon/pages/home_tabs/music_page.dart';
+import 'package:silentmoon/pages/home_tabs/profile_page.dart';
+import 'package:silentmoon/pages/home_tabs/sleep_page.dart';
 
 class BottomNavbar extends StatelessWidget {
   const BottomNavbar({super.key});
