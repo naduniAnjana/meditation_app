@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:silentmoon/app/configs/theme.dart';
+import 'package:silentmoon/components/mini_player.dart';
 import 'package:silentmoon/pages/home_tabs/home_page.dart';
 import 'package:silentmoon/pages/home_tabs/meditate_page.dart';
 import 'package:silentmoon/pages/home_tabs/music_page.dart';
@@ -56,7 +57,7 @@ class BottomNavbar extends StatelessWidget {
           ),
         );
       }),
-      body: Obx(() => controller.screens[controller.selectedIndex.value]),
+      body: Stack(children: [Obx(() => controller.screens[controller.selectedIndex.value]), const MiniPlayer(),] ),
     );
   }
 }
