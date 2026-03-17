@@ -76,6 +76,9 @@ class _MeditationState extends State<Meditation> {
     });
 
     _audioPlayer.playerStateStream.listen((state) {
+      setState(() {
+        isPlaying = state.playing;
+      });
       if (state.processingState == ProcessingState.completed) {
         if (repeatMode == RepeatMode.one) {
           _audioPlayer.seek(Duration.zero);
@@ -107,9 +110,9 @@ class _MeditationState extends State<Meditation> {
       await _audioPlayer.play();
     }
 
-    setState(() {
-      isPlaying = _audioPlayer.playing;
-    });
+    // setState(() {
+    //   isPlaying = _audioPlayer.playing;
+    // });
   }
 
   String formatTime(Duration d) {

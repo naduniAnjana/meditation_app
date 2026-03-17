@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 class ThemeConfigs {
-  static const color1 = Color(0xFF001C54);
+  static const color1 = Color(0xFF08296D);
   static const color2 = Color(0xFFFFFFFF);
   static const color3 = Color(0xFF939AFB);
   static const color4 = Color(0x8F000000);

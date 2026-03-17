@@ -56,7 +56,7 @@ class _MusicPageState extends State<MusicPage> {
             ),
           ),
 
-          const SizedBox(height: 15),
+          const SizedBox(height: 25),
 
           // Description
           Padding(
@@ -71,73 +71,73 @@ class _MusicPageState extends State<MusicPage> {
           const SizedBox(height: 18),
 
           // Menu Bar
-          SizedBox(
-            height: 100,
-            width: double.infinity,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: menuItems.length,
-              itemBuilder: (context, index) {
-                bool isSelected = selectedIndex == index;
-                final bool isLastItem = index == menuItems.length - 1;
+          // SizedBox(
+          //   height: 100,
+          //   width: double.infinity,
+          //   child: ListView.builder(
+          //     scrollDirection: Axis.horizontal,
+          //     itemCount: menuItems.length,
+          //     itemBuilder: (context, index) {
+          //       bool isSelected = selectedIndex == index;
+          //       final bool isLastItem = index == menuItems.length - 1;
 
-                return Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedIndex = index;
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: Column(
-                          children: [
-                            // Icon Container
-                            Container(
-                              margin: const EdgeInsets.symmetric(vertical: 10),
-                              width: 55,
-                              height: 55,
-                              decoration: BoxDecoration(
-                                color:
-                                    isSelected
-                                        ? ThemeConfigs.color3
-                                        : ThemeConfigs.color21,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Center(
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 10),
-                                  child: Icon(
-                                    menuItems[index]["icon"],
-                                    color: ThemeConfigs.color2,
-                                  ),
-                                ),
-                              ),
-                            ),
+          //       return Row(
+          //         children: [
+          //           GestureDetector(
+          //             onTap: () {
+          //               setState(() {
+          //                 selectedIndex = index;
+          //               });
+          //             },
+          //             child: Padding(
+          //               padding: const EdgeInsets.only(left: 20),
+          //               child: Column(
+          //                 children: [
+          //                   // Icon Container
+          //                   Container(
+          //                     margin: const EdgeInsets.symmetric(vertical: 10),
+          //                     width: 55,
+          //                     height: 55,
+          //                     decoration: BoxDecoration(
+          //                       color:
+          //                           isSelected
+          //                               ? ThemeConfigs.color3
+          //                               : ThemeConfigs.color21,
+          //                       borderRadius: BorderRadius.circular(20),
+          //                     ),
+          //                     child: Center(
+          //                       child: Padding(
+          //                         padding: EdgeInsets.symmetric(vertical: 10),
+          //                         child: Icon(
+          //                           menuItems[index]["icon"],
+          //                           color: ThemeConfigs.color2,
+          //                         ),
+          //                       ),
+          //                     ),
+          //                   ),
                     
-                            // Text Label
-                            Text(
-                              menuItems[index]["label"],
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color:
-                                    isSelected
-                                        ? ThemeConfigs.color14
-                                        : ThemeConfigs.color21,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    if (isLastItem) const SizedBox(width: 20),
-                  ],
-                );
-              },
-            ),
-          ),
+          //                   // Text Label
+          //                   Text(
+          //                     menuItems[index]["label"],
+          //                     style: TextStyle(
+          //                       fontSize: 14,
+          //                       fontWeight: FontWeight.w500,
+          //                       color:
+          //                           isSelected
+          //                               ? ThemeConfigs.color14
+          //                               : ThemeConfigs.color21,
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //           ),
+          //           if (isLastItem) const SizedBox(width: 20),
+          //         ],
+          //       );
+          //     },
+          //   ),
+          // ),
 
           // Daily Calm Container
           Padding(

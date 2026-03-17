@@ -48,7 +48,7 @@ class _SleepPageState extends State<SleepPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF001C54),
+      backgroundColor: const Color(0xFF092E77),
       body: Stack(
         children: [
           Opacity(
@@ -80,7 +80,7 @@ class _SleepPageState extends State<SleepPage> {
                 ),
               ),
 
-              const SizedBox(height: 15),
+              const SizedBox(height: 25),
 
               // Description
               Padding(
@@ -95,67 +95,67 @@ class _SleepPageState extends State<SleepPage> {
               const SizedBox(height: 18),
 
               // Menu Bar
-              SizedBox(
-                height: 100,
-                width: double.infinity,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: menuItems.length,
-                  itemBuilder: (context, index) {
-                    bool isSelected = selectedIndex == index;
+              // SizedBox(
+              //   height: 100,
+              //   width: double.infinity,
+              //   child: ListView.builder(
+              //     scrollDirection: Axis.horizontal,
+              //     itemCount: menuItems.length,
+              //     itemBuilder: (context, index) {
+              //       bool isSelected = selectedIndex == index;
 
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedIndex = index;
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: Column(
-                          children: [
-                            // Icon Container
-                            Container(
-                              margin: const EdgeInsets.symmetric(vertical: 10),
-                              width: 55,
-                              height: 55,
-                              decoration: BoxDecoration(
-                                color:
-                                    isSelected
-                                        ? ThemeConfigs.color3
-                                        : ThemeConfigs.color25,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Center(
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 10),
-                                  child: Icon(
-                                    menuItems[index]["icon"],
-                                    color: ThemeConfigs.color2,
-                                  ),
-                                ),
-                              ),
-                            ),
+              //       return GestureDetector(
+              //         onTap: () {
+              //           setState(() {
+              //             selectedIndex = index;
+              //           });
+              //         },
+              //         child: Padding(
+              //           padding: const EdgeInsets.only(left: 20),
+              //           child: Column(
+              //             children: [
+              //               // Icon Container
+              //               Container(
+              //                 margin: const EdgeInsets.symmetric(vertical: 10),
+              //                 width: 55,
+              //                 height: 55,
+              //                 decoration: BoxDecoration(
+              //                   color:
+              //                       isSelected
+              //                           ? ThemeConfigs.color3
+              //                           : ThemeConfigs.color25,
+              //                   borderRadius: BorderRadius.circular(20),
+              //                 ),
+              //                 child: Center(
+              //                   child: Padding(
+              //                     padding: EdgeInsets.symmetric(vertical: 10),
+              //                     child: Icon(
+              //                       menuItems[index]["icon"],
+              //                       color: ThemeConfigs.color2,
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ),
 
-                            // Text Label
-                            Text(
-                              menuItems[index]["label"],
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color:
-                                    isSelected
-                                        ? ThemeConfigs.color3
-                                        : ThemeConfigs.color21,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+              //               // Text Label
+              //               Text(
+              //                 menuItems[index]["label"],
+              //                 style: TextStyle(
+              //                   fontSize: 14,
+              //                   fontWeight: FontWeight.w500,
+              //                   color:
+              //                       isSelected
+              //                           ? ThemeConfigs.color3
+              //                           : ThemeConfigs.color21,
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //       );
+              //     },
+              //   ),
+              // ),
 
               // Ocean Moon Container
               Padding(
@@ -235,11 +235,12 @@ class _SleepPageState extends State<SleepPage> {
               const SizedBox(height: 10),
 
               // Two-Column Grid of Containers
-              Expanded(
+              Flexible(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: MasonryGridView.builder(
                     physics: const ClampingScrollPhysics(),
+                    shrinkWrap: true,
                     gridDelegate:
                         const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,

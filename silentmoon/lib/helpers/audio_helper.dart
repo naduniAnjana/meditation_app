@@ -5,7 +5,7 @@ class AudioController extends GetxController {
   final AudioPlayer player = AudioPlayer();
 
   var isPlaying = false.obs;
-  var volume = 0.3.obs;
+  var volume = 0.2.obs;
 
   @override
   void onInit() {
