@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:silentmoon/app/configs/theme.dart';
+import 'package:silentmoon/pages/home_tabs/bedtime_reminder_page.dart';
+import 'package:silentmoon/pages/welcome_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -21,6 +24,35 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     fetchUserName();
+  }
+
+  Future<void> _logout(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      
+      try {
+        final GoogleSignIn googleSignIn = GoogleSignIn();
+        if (await googleSignIn.isSignedIn()) {
+          await googleSignIn.signOut();
+        }
+      } catch (e) {
+        // Ignore Google Sign Out error
+      }
+
+      if (context.mounted) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (_) => const WelcomePage()),
+          (route) => false,
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error logging out: $e')),
+        );
+      }
+    }
   }
 
   Future<void> fetchUserName() async {
@@ -133,7 +165,18 @@ class _ProfilePageState extends State<ProfilePage> {
                 color: ThemeConfigs.color2,
                 items: [
                   _OptionItem(icon: PhosphorIconsBold.bell, title: 'Meditation Reminders'),
-                  _OptionItem(icon: PhosphorIconsBold.alarm, title: 'Bedtime Reminders'),
+                  _OptionItem(
+                    icon: PhosphorIconsBold.alarm,
+                    title: 'Bedtime Reminders',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const BedtimeReminderPage(),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
               const SizedBox(height: 20),
@@ -159,7 +202,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   _OptionItem(icon: PhosphorIconsBold.gear, title: 'Settings'),
-                  _OptionItem(icon: PhosphorIconsBold.signOut, title: 'Logout'),
+                  _OptionItem(
+                    icon: PhosphorIconsBold.signOut,
+                    title: 'Logout',
+                    onTap: () => _logout(context),
+                  ),
                 ],
               ),
               const SizedBox(height: 20),
