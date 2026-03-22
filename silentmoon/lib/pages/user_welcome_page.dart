@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:silentmoon/app/configs/theme.dart';
 import 'package:silentmoon/components/bottom_navbar.dart';
@@ -10,6 +12,43 @@ class UserWelcomePage extends StatefulWidget {
 }
 
 class _UserWelcomePageState extends State<UserWelcomePage> {
+  String userName = '';
+
+  String _capitalize(String s) => s.isNotEmpty ? '${s[0].toUpperCase()}${s.substring(1)}' : s;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserName();
+  }
+
+  Future<void> fetchUserName() async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      try {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(currentUser.uid)
+            .get();
+
+        if (userDoc.exists && userDoc.data() != null) {
+          var data = userDoc.data() as Map<String, dynamic>;
+          setState(() {
+            userName = data['username'] ?? currentUser.displayName ?? '';
+          });
+        } else {
+          setState(() {
+            userName = currentUser.displayName ?? '';
+          });
+        }
+      } catch (e) {
+        setState(() {
+          userName = currentUser.displayName ?? '';
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,16 +92,14 @@ class _UserWelcomePageState extends State<UserWelcomePage> {
             const SizedBox(height: 40),
         
             // hi message
-            const Text(
-              'Hi Nanduni, Welcome',
-              style: TextStyle(
+            Text(
+              'Hi ${userName.isNotEmpty ? _capitalize(userName) : "User"}, Welcome',
+              style: const TextStyle(
                 color: ThemeConfigs.color2,
                 fontWeight: FontWeight.bold,
                 fontSize: 28,
               ),
             ),
-
-            // const SizedBox(height: 10),
         
             // to silent moon text
             const Text(
@@ -86,12 +123,11 @@ class _UserWelcomePageState extends State<UserWelcomePage> {
                 ),
               ),
             ),
-          
         
             // image
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 70),
-              child: Image.asset('assets/images/app/medi.png', width: 300, height: 300),
+              child: Image.asset('assets/images/app/medi.png', width: 350, height: 350),
             ),
         
             // button

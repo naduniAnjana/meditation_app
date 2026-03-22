@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
@@ -13,9 +15,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String userName = '';
+
+  String _capitalize(String s) => s.isNotEmpty ? '${s[0].toUpperCase()}${s.substring(1)}' : s;
+
   @override
   void initState() {
     super.initState();
+    fetchUserName();
 
     final audioController = Get.put(AudioController());
 
@@ -24,6 +31,33 @@ class _HomePageState extends State<HomePage> {
         audioController.playMusic();
       }
     });
+  }
+
+  Future<void> fetchUserName() async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      try {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(currentUser.uid)
+            .get();
+
+        if (userDoc.exists && userDoc.data() != null) {
+          var data = userDoc.data() as Map<String, dynamic>;
+          setState(() {
+            userName = data['username'] ?? currentUser.displayName ?? '';
+          });
+        } else {
+          setState(() {
+            userName = currentUser.displayName ?? '';
+          });
+        }
+      } catch (e) {
+        setState(() {
+          userName = currentUser.displayName ?? '';
+        });
+      }
+    }
   }
 
   @override
@@ -64,11 +98,11 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 20),
 
           // good morning message with the name
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              'Good Morning, Nanduni',
-              style: TextStyle(
+              'Good Morning, ${userName.isNotEmpty ? _capitalize(userName) : "User"}',
+              style: const TextStyle(
                 color: ThemeConfigs.color14,
                 fontSize: 25,
                 fontWeight: FontWeight.bold,

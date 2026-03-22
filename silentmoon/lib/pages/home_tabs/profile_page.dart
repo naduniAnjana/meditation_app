@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:silentmoon/app/configs/theme.dart';
@@ -11,6 +13,42 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   bool isDarkMode = false;
+  String userName = '';
+
+  String _capitalize(String s) => s.isNotEmpty ? '${s[0].toUpperCase()}${s.substring(1)}' : s;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserName();
+  }
+
+  Future<void> fetchUserName() async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      try {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(currentUser.uid)
+            .get();
+
+        if (userDoc.exists && userDoc.data() != null) {
+          var data = userDoc.data() as Map<String, dynamic>;
+          setState(() {
+            userName = data['username'] ?? currentUser.displayName ?? '';
+          });
+        } else {
+          setState(() {
+            userName = currentUser.displayName ?? '';
+          });
+        }
+      } catch (e) {
+        setState(() {
+          userName = currentUser.displayName ?? '';
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,8 +107,8 @@ class _ProfilePageState extends State<ProfilePage> {
               // Name
               Center(
                 child: Text(
-                  "Nanduni Anjana",
-                  style: TextStyle(
+                  userName.isNotEmpty ? _capitalize(userName) : "User",
+                  style: const TextStyle(
                     color: ThemeConfigs.color14,
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
