@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:silentmoon/app/configs/theme.dart';
+import 'package:silentmoon/model/morning_model.dart';
+import 'package:silentmoon/pages/music/sleep_song_screen.dart';
 
 class SleepPage extends StatefulWidget {
   const SleepPage({super.key});
@@ -10,40 +12,123 @@ class SleepPage extends StatefulWidget {
 }
 
 class _SleepPageState extends State<SleepPage> {
-  // Define a list of different icons with their labels
-  final List<Map<String, dynamic>> menuItems = [
-    {"icon": Icons.wind_power, "label": "All"},
-    {"icon": Icons.favorite, "label": "My"},
-    {"icon": Icons.face, "label": "Anxious"},
-    {"icon": Icons.nightlight_round, "label": "Sleep"},
-    {"icon": Icons.child_care, "label": "Kids"},
-    {"icon": Icons.music_note, "label": "Music"},
-    {"icon": Icons.favorite, "label": "Love"},
+  late List<Map<String, dynamic>> containerData;
+
+  final List<MorningModel> morningMeditation = [
+    MorningModel(
+      title: "Morning Clarity",
+      artist: "JackCatorBooks",
+      image: "assets/images/music/clarity.jpg",
+      audio: "assets/audios/music/morning-clarity.mp3",
+      duration: "03:39",
+    ),
+    MorningModel(
+      title: "Early Morning Meditation",
+      artist: "Universe_Bella",
+      image: "assets/images/music/early.jpg",
+      audio: "assets/audios/music/early-morning.mp3",
+      duration: "02:56",
+    ),
+    MorningModel(
+      title: "Morning Meditation",
+      artist: "FASSounds",
+      image: "assets/images/music/meditation.jpg",
+      audio: "assets/audios/music/morning-meditation.mp3",
+      duration: "05:43",
+    ),
+    MorningModel(
+      title: "Morning Relaxing",
+      artist: "Onetent",
+      image: "assets/images/music/relaxing.jpg",
+      audio: "assets/audios/music/morning-relaxing.mp3",
+      duration: "05:52",
+    ),
+    MorningModel(
+      title: "Rainy Morning Meditation",
+      artist: "Siarhei_Korbut",
+      image: "assets/images/music/rainy.jpg",
+      audio: "assets/audios/music/rainy-morning.mp3",
+      duration: "05:00",
+    ),
+  ];
+
+  final List<MorningModel> deepBreathing = [
+    MorningModel(
+      title: "Early Morning Meditation",
+      artist: "Universe_Bella",
+      image: "assets/images/music/early.jpg",
+      audio: "assets/audios/music/early-morning.mp3",
+      duration: "02:56",
+    ),
+  ];
+
+  final List<MorningModel> sleepBetter = [
+    MorningModel(
+      title: "Morning Meditation",
+      artist: "FASSounds",
+      image: "assets/images/music/meditation.jpg",
+      audio: "assets/audios/music/morning-meditation.mp3",
+      duration: "05:43",
+    ),
+  ];
+
+  final List<MorningModel> calmMind = [
+    MorningModel(
+      title: "Morning Relaxing",
+      artist: "Onetent",
+      image: "assets/images/music/relaxing.jpg",
+      audio: "assets/audios/music/morning-relaxing.mp3",
+      duration: "05:52",
+    ),
+  ];
+
+  final List<MorningModel> dailyGratitude = [
+    MorningModel(
+      title: "Rainy Morning Meditation",
+      artist: "Siarhei_Korbut",
+      image: "assets/images/music/rainy.jpg",
+      audio: "assets/audios/music/rainy-morning.mp3",
+      duration: "05:00",
+    ),
+  ];
+
+  final List<MorningModel> stressRelief = [
+    MorningModel(
+      title: "Rainy Morning Meditation",
+      artist: "Siarhei_Korbut",
+      image: "assets/images/music/rainy.jpg",
+      audio: "assets/audios/music/rainy-morning.mp3",
+      duration: "05:00",
+    ),
+  ];
+
+  final List<MorningModel> mindReset = [
+    MorningModel(
+      title: "Rainy Morning Meditation",
+      artist: "Siarhei_Korbut",
+      image: "assets/images/music/rainy.jpg",
+      audio: "assets/audios/music/rainy-morning.mp3",
+      duration: "05:00",
+    ),
   ];
 
   int selectedIndex = 0;
 
-  final List<Map<String, String>> containerData = [
-    {"image": 'assets/images/app/sleep1.png'},
-    {"image": 'assets/images/app/sleep2.png'},
-    {"image": 'assets/images/app/sleep3.jpg'},
-    {"image": 'assets/images/app/sleep4.png'},
-    {"image": 'assets/images/app/sleep5.jpg'},
-    {"image": 'assets/images/app/sleep6.jpg'},
-    {"image": 'assets/images/app/sleep7.png'},
-    {"image": 'assets/images/app/sleep8.png'},
-  ];
+  @override
+  void initState() {
+    super.initState();
 
-  final List<Map<String, String>> containerText = [
-    {"text": "NIght Island"},
-    {"text": "Sweet Sleep"},
-    {"text": "Calm Your Mind"},
-    {"text": "Sleep Better"},
-    {"text": "Daily Gratitude"},
-    {"text": "Stress Relief"},
-    {"text": "Stress Relief"},
-    {"text": "Stress Relief"},
-  ];
+    containerData = [
+      {"image": 'assets/images/app/sleep1.png',"text": "NIght Island","playlist": morningMeditation,},
+      {"image": 'assets/images/app/sleep2.png',"text": "Sweet Sleep","playlist": deepBreathing,},
+      {"image": 'assets/images/app/sleep3.jpg',"text": "Calm Your Mind","playlist": calmMind,},
+      {"image": 'assets/images/app/sleep4.png',"text": "Sleep Better","playlist": sleepBetter,},
+      {"image": 'assets/images/app/sleep5.jpg',"text": "Daily Gratitude","playlist": dailyGratitude,},
+      {"image": 'assets/images/app/sleep6.jpg',"text": "Stress Relief","playlist": stressRelief,},
+      {"image": 'assets/images/app/sleep7.png',"text": "Mind Reset","playlist": mindReset,},
+      {"image": 'assets/images/app/sleep8.png',"text": "Mind Reset","playlist": mindReset,},
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,71 +176,7 @@ class _SleepPageState extends State<SleepPage> {
                   style: TextStyle(color: ThemeConfigs.color2),
                 ),
               ),
-
               const SizedBox(height: 18),
-
-              // Menu Bar
-              // SizedBox(
-              //   height: 100,
-              //   width: double.infinity,
-              //   child: ListView.builder(
-              //     scrollDirection: Axis.horizontal,
-              //     itemCount: menuItems.length,
-              //     itemBuilder: (context, index) {
-              //       bool isSelected = selectedIndex == index;
-
-              //       return GestureDetector(
-              //         onTap: () {
-              //           setState(() {
-              //             selectedIndex = index;
-              //           });
-              //         },
-              //         child: Padding(
-              //           padding: const EdgeInsets.only(left: 20),
-              //           child: Column(
-              //             children: [
-              //               // Icon Container
-              //               Container(
-              //                 margin: const EdgeInsets.symmetric(vertical: 10),
-              //                 width: 55,
-              //                 height: 55,
-              //                 decoration: BoxDecoration(
-              //                   color:
-              //                       isSelected
-              //                           ? ThemeConfigs.color3
-              //                           : ThemeConfigs.color25,
-              //                   borderRadius: BorderRadius.circular(20),
-              //                 ),
-              //                 child: Center(
-              //                   child: Padding(
-              //                     padding: EdgeInsets.symmetric(vertical: 10),
-              //                     child: Icon(
-              //                       menuItems[index]["icon"],
-              //                       color: ThemeConfigs.color2,
-              //                     ),
-              //                   ),
-              //                 ),
-              //               ),
-
-              //               // Text Label
-              //               Text(
-              //                 menuItems[index]["label"],
-              //                 style: TextStyle(
-              //                   fontSize: 14,
-              //                   fontWeight: FontWeight.w500,
-              //                   color:
-              //                       isSelected
-              //                           ? ThemeConfigs.color3
-              //                           : ThemeConfigs.color21,
-              //                 ),
-              //               ),
-              //             ],
-              //           ),
-              //         ),
-              //       );
-              //     },
-              //   ),
-              // ),
 
               // Ocean Moon Container
               Padding(
@@ -249,55 +270,69 @@ class _SleepPageState extends State<SleepPage> {
                     crossAxisSpacing: 20,
                     itemCount: containerData.length,
                     itemBuilder: (context, index) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            height: 120,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              image: DecorationImage(
-                                image: AssetImage(
-                                  containerData[index]["image"]!,
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => SleepSongScreen(
+                                title: containerData[index]["text"],
+                                playlist: containerData[index]["playlist"],
+                              ),
+                            ),
+                          );
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              height: 120,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                    containerData[index]["image"]!,
+                                  ),
+                                  fit: BoxFit.cover,
                                 ),
-                                fit: BoxFit.cover,
                               ),
                             ),
-                          ),
-
-                          const SizedBox(height: 8),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 3),
-                            child: Text(
-                              containerText[index]["text"]!,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: ThemeConfigs.color2,
+                        
+                            const SizedBox(height: 8),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 3),
+                              child: Text(
+                                containerData[index]["text"]!,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: ThemeConfigs.color2,
+                                ),
                               ),
                             ),
-                          ),
-
-                          const SizedBox(height: 2),
-
-                          // description
-                          Padding(
-                            padding: const EdgeInsets.only(left: 3),
-                            child: Text(
-                              '45 MIN . SLEEP MUSIC',
-                              style: TextStyle(
-                                color: ThemeConfigs.color17,
-                                fontSize: 10,
+                        
+                            const SizedBox(height: 2),
+                        
+                            // description
+                            Padding(
+                              padding: const EdgeInsets.only(left: 3),
+                              child: Text(
+                                '45 MIN . SLEEP MUSIC',
+                                style: TextStyle(
+                                  color: ThemeConfigs.color17,
+                                  fontSize: 10,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       );
                     },
                   ),
                 ),
               ),
+              const SizedBox(height: 20),
             ],
           ),
         ],
