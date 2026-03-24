@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:silentmoon/app/configs/theme.dart';
-import 'package:silentmoon/pages/home_tabs/bedtime_reminder_page.dart';
+import 'package:silentmoon/pages/profile_tabs/bedtime_reminder_page.dart';
+import 'package:silentmoon/pages/profile_tabs/meditation_reminder_page.dart';
 import 'package:silentmoon/pages/welcome_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -164,7 +165,18 @@ class _ProfilePageState extends State<ProfilePage> {
               _buildOptionContainer(
                 color: ThemeConfigs.color2,
                 items: [
-                  _OptionItem(icon: PhosphorIconsBold.bell, title: 'Meditation Reminders'),
+                  _OptionItem(
+                    icon: PhosphorIconsBold.bell,
+                    title: 'Meditation Reminders',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const MeditationReminderPage(),
+                        ),
+                      );
+                    },
+                  ),
                   _OptionItem(
                     icon: PhosphorIconsBold.alarm,
                     title: 'Bedtime Reminders',

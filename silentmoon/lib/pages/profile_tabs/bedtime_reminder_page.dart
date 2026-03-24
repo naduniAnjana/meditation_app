@@ -50,7 +50,7 @@ class _BedtimeReminderPageState extends State<BedtimeReminderPage> {
         );
       }
     } else {
-      await notificationService.cancelAllNotifications();
+      await notificationService.cancelBedtimeReminder();
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Bedtime reminder disabled.')),
