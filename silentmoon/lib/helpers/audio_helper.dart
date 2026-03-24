@@ -15,7 +15,7 @@ class AudioController extends GetxController {
 
   Future<void> initAudio() async {
     try {
-      await player.setAsset('assets/audios/morning/morning-clarity.mp3');
+      await player.setAsset('assets/audios/music/morning-clarity.mp3');
       player.setLoopMode(LoopMode.one);
       player.setVolume(volume.value);
     } catch (e) {

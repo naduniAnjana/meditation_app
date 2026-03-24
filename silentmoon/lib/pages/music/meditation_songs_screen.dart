@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:silentmoon/app/configs/theme.dart';
 import 'package:silentmoon/model/morning_model.dart';
+import 'package:silentmoon/services/favorites_service.dart';
 
 enum RepeatMode { off, all, one }
 
@@ -23,8 +25,13 @@ class Meditation extends StatefulWidget {
 class _MeditationState extends State<Meditation> {
   double progress = 0.0;
   bool isPlaying = false;
+  bool isFavorite = false;
 
   final AudioPlayer _audioPlayer = AudioPlayer();
+  StreamSubscription? _positionSubscription;
+  StreamSubscription? _durationSubscription;
+  StreamSubscription? _playerStateSubscription;
+  
   int currentIndex = 0;
 
   Duration position = Duration.zero;
@@ -38,30 +45,33 @@ class _MeditationState extends State<Meditation> {
   void initState() {
     super.initState();
     playlist = widget.playlist;
+    _checkFavoriteStatus();
 
-    _audioPlayer.positionStream.listen((p) {
-      setState(() => position = p);
+    _positionSubscription = _audioPlayer.positionStream.listen((p) {
+      if (mounted) setState(() => position = p);
     });
 
-    _audioPlayer.durationStream.listen((d) {
-      setState(() => duration = d ?? Duration.zero);
+    _durationSubscription = _audioPlayer.durationStream.listen((d) {
+      if (mounted) setState(() => duration = d ?? Duration.zero);
     });
 
-    _audioPlayer.playerStateStream.listen((state) {
-      setState(() {
-        isPlaying = state.playing;
-      });
-      if (state.processingState == ProcessingState.completed) {
-        if (repeatMode == RepeatMode.one) {
-          _audioPlayer.seek(Duration.zero);
-          _audioPlayer.play();
-        } else if (repeatMode == RepeatMode.all) {
-          playNext();
-        } else {
-          setState(() {
-            isPlaying = false;
-            position = Duration.zero;
-          });
+    _playerStateSubscription = _audioPlayer.playerStateStream.listen((state) {
+      if (mounted) {
+        setState(() {
+          isPlaying = state.playing;
+        });
+        if (state.processingState == ProcessingState.completed) {
+          if (repeatMode == RepeatMode.one) {
+            _audioPlayer.seek(Duration.zero);
+            _audioPlayer.play();
+          } else if (repeatMode == RepeatMode.all) {
+            playNext();
+          } else {
+            setState(() {
+              isPlaying = false;
+              position = Duration.zero;
+            });
+          }
         }
       }
     });
@@ -74,6 +84,7 @@ class _MeditationState extends State<Meditation> {
       await _audioPlayer.setAsset(track.audio);
       currentIndex = index;
       position = Duration.zero;
+      _checkFavoriteStatus();
     }
 
     if (_audioPlayer.playing) {
@@ -105,6 +116,24 @@ class _MeditationState extends State<Meditation> {
     playAudio(prevIndex);
   }
 
+  Future<void> _checkFavoriteStatus() async {
+    bool fav = await FavoritesService().isFavorite(playlist[currentIndex]);
+    if (mounted) {
+      setState(() {
+        isFavorite = fav;
+      });
+    }
+  }
+
+  Future<void> _toggleFavorite() async {
+    bool fav = await FavoritesService().toggleFavorite(playlist[currentIndex]);
+    if (mounted) {
+      setState(() {
+        isFavorite = fav;
+      });
+    }
+  }
+
   void toggleRepeat() {
     setState(() {
       switch (repeatMode) {
@@ -123,6 +152,9 @@ class _MeditationState extends State<Meditation> {
 
   @override
   void dispose() {
+    _positionSubscription?.cancel();
+    _durationSubscription?.cancel();
+    _playerStateSubscription?.cancel();
     _audioPlayer.dispose();
     super.dispose();
   }
@@ -317,11 +349,11 @@ class _MeditationState extends State<Meditation> {
                             // Favorite
                             IconButton(
                               iconSize: 25,
-                              icon: const Icon(
-                                PhosphorIconsBold.heartStraight,
-                                color: ThemeConfigs.color2,
+                              icon: Icon(
+                                isFavorite ? PhosphorIconsBold.heart : PhosphorIconsBold.heartStraight,
+                                color: isFavorite ? Colors.red : ThemeConfigs.color2,
                               ),
-                              onPressed: () {},
+                              onPressed: _toggleFavorite,
                             ),
                           ],
                         ),

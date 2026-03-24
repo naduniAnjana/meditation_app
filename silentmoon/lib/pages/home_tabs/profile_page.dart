@@ -6,6 +6,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:silentmoon/app/configs/theme.dart';
 import 'package:silentmoon/pages/profile_tabs/bedtime_reminder_page.dart';
 import 'package:silentmoon/pages/profile_tabs/meditation_reminder_page.dart';
+import 'package:silentmoon/pages/profile_tabs/my_favourite_page.dart';
 import 'package:silentmoon/pages/welcome_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -156,7 +157,18 @@ class _ProfilePageState extends State<ProfilePage> {
                 items: [
                   _OptionItem(icon: PhosphorIconsBold.user, title: 'Account Info'),
                   _OptionItem(icon: PhosphorIconsBold.key, title: 'Change Password'),
-                  _OptionItem(icon: PhosphorIconsBold.heartStraight, title: 'My Favourite'),
+                  _OptionItem(
+                    icon: PhosphorIconsBold.heartStraight,
+                    title: 'My Favourite',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const MyFavouritePage(),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
               const SizedBox(height: 20),
