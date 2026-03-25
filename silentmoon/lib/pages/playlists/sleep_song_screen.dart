@@ -43,6 +43,7 @@ class _SleepSongScreenState extends State<SleepSongScreen> {
 
   List<MorningModel> playlist = [];
   bool isLoading = true;
+  bool isAudioLoaded = false;
 
   @override
   void initState() {
@@ -111,10 +112,11 @@ class _SleepSongScreenState extends State<SleepSongScreen> {
   Future<void> playAudio(int index) async {
     final track = playlist[index];
 
-    if (currentIndex != index) {
+    if (currentIndex != index || !isAudioLoaded) {
       await _audioPlayer.setUrl(track.audio);
       currentIndex = index;
       position = Duration.zero;
+      isAudioLoaded = true;
       _checkFavoriteStatus();
     }
 
