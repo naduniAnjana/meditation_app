@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:silentmoon/app/configs/theme.dart';
-import 'package:silentmoon/pages/music/sleep_song_screen.dart';
+import 'package:silentmoon/pages/playlists/sleep_song_screen.dart';
 
 class SleepPage extends StatefulWidget {
   const SleepPage({super.key});

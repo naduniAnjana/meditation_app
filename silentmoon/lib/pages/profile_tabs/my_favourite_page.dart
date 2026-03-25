@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:silentmoon/app/configs/theme.dart';
 import 'package:silentmoon/model/morning_model.dart';
 import 'package:silentmoon/services/favorites_service.dart';
-import 'package:silentmoon/pages/music/meditation_songs_screen.dart';
+import 'package:silentmoon/pages/playlists/meditation_songs_screen.dart';
 
 class MyFavouritePage extends StatefulWidget {
   const MyFavouritePage({super.key});

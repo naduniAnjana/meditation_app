@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:silentmoon/app/configs/theme.dart';
-import 'package:silentmoon/pages/music/meditation_songs_screen.dart';
+import 'package:silentmoon/pages/playlists/meditation_songs_screen.dart';
 
 class MusicPage extends StatefulWidget {
   const MusicPage({super.key});
