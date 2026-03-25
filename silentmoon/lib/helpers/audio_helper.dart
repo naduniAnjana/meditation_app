@@ -15,7 +15,7 @@ class AudioController extends GetxController {
 
   Future<void> initAudio() async {
     try {
-      await player.setAsset('assets/audios/music/morning-clarity.mp3');
+      await player.setUrl('https://res.cloudinary.com/dfagmkda2/video/upload/v1774347112/morning-clarity_x07ga4.mp3');
       player.setLoopMode(LoopMode.one);
       player.setVolume(volume.value);
     } catch (e) {

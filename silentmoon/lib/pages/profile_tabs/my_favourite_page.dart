@@ -87,7 +87,7 @@ class _MyFavouritePageState extends State<MyFavouritePage> {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       image: DecorationImage(
-                                        image: AssetImage(item.image),
+                                        image: NetworkImage(item.image),
                                         fit: BoxFit.cover,
                                       ),
                                     ),
