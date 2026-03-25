@@ -1,0 +1,313 @@
+[
+  {
+    "title": "Midnight Celebration",
+    "artist": "JoyInSound",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774360306/midnight-celebration_te3gb1.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774360157/midnight-celebration_ufeeag.mp3",
+    "duration": "1:26",
+    "category": "Night Island"
+  },
+  {
+    "title": "Urban Island",
+    "artist": "Sonican",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774360727/sonican-urban_yjh2dd.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774360617/sonican-urban_vfahpq.mp3",
+    "duration": "1:48",
+    "category": "Night Island"
+  },
+  {
+    "title": "Summer Style Island",
+    "artist": "REDproductions",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774361020/summer-island_hzurrg.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774361053/summer-island_bgzme7.mp3",
+    "duration": "2:05",
+    "category": "Night Island"
+  },
+  {
+    "title": "The Red Lights of Amsterdam",
+    "artist": "TokyoRifft",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774361469/red-lights_jcssty.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774361345/red-lights_fes7dn.mp3",
+    "duration": "3:49",
+    "category": "Night Island"
+  },
+  {
+    "title": "Palm Night Chill EDM",
+    "artist": "Andrewbali",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774361629/palm-night_cikbxk.png",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774361723/palm-night_i64now.mp3",
+    "duration": "2:18",
+    "category": "Night Island"
+  },
+
+  {
+    "title": "Deep Meditation Sweet Sleep",
+    "artist": "Dominique_GARNIER",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774364114/deep-meditation_rqimzd.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774364016/deep-meditation_tdbftl.mp3",
+    "duration": "4:53",
+    "category": "Sweet Sleep"
+  },
+  {
+    "title": "Lullaby - Papillons",
+    "artist": "AiCanvas",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774362773/sweet-mix_m2yygb.png",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774362630/sweet-mix_knua8q.mp3",
+    "duration": "4:00",
+    "category": "Sweet Sleep"
+  },
+  {
+    "title": "Deep Relaxation Sweet Sleep",
+    "artist": "Dominique_GARNIER",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774363798/deep-relaxtaion_jtkzsf.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774363833/deep-relaxation_gkq5d3.mp3",
+    "duration": "5:56",
+    "category": "Sweet Sleep"
+  },
+  {
+    "title": "Deep Sweet Sleep",
+    "artist": "JDominique_GARNIER",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774364446/deep-sweet_j2rk3r.png",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774364486/deep-sweet_ilta07.mp3",
+    "duration": "7:44",
+    "category": "Sweet Sleep"
+  },
+  {
+    "title": "Ethereal Dreams NoArp",
+    "artist": "MusicLFiles",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774364783/ethereal-dreams_fpo5rj.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774364707/ethereal-dreams_rvffs0.mp3",
+    "duration": "4:35",
+    "category": "Sweet Sleep"
+  },
+
+  {
+    "title": "The Moon's Silent Ballad",
+    "artist": "MindfulLiving",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774367018/moon-silennt_jm7ko3.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774367127/moon-silent_pqjnc7.mp3",
+    "duration": "2:40",
+    "category": "Silent Night Tales"
+  },
+  {
+    "title": "Silent Whisper",
+    "artist": "Mccb_Visuals",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774367779/silent-whisper_ej2emp.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774367752/silent-whisper_zvjpiu.mp3",
+    "duration": "3:46",
+    "category": "Silent Night Tales"
+  },
+  {
+    "title": "Silent Night Lights",
+    "artist": "tramp963",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774367962/silent-night_xma8te.png",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774368013/silent-night_sqzxdb.mp3",
+    "duration": "4:00",
+    "category": "Silent Night Tales"
+  },
+  {
+    "title": "Silent Night Meditation",
+    "artist": "Megisss",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774368285/silent-meditation_skxmei.png",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774368237/silent-meditation_erhsnc.mp3",
+    "duration": "2:53",
+    "category": "Silent Night Tales"
+  },
+  {
+    "title": "Night Meditation Meditation",
+    "artist": "QuietPhase",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774368544/night-meditation_wbo9of.png",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774368574/night-meditation_jkiczm.mp3",
+    "duration": "4:36",
+    "category": "Silent Night Tales"
+  },
+
+  {
+    "title": "Soulful Moonlight Sonata",
+    "artist": "Music_For_Videos",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774369183/soulful-moonlight_rolzhl.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774369140/soulful-moonlight_kopfym.mp3",
+    "duration": "2:04",
+    "category": "Moonlight Dreams"
+  },
+  {
+    "title": "Moonlight Relaxing",
+    "artist": "Music_For_Videos",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774369374/moonlight-relaxing_l5vxjy.png",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774369408/moonlight-relaxing_bm8djd.mp3",
+    "duration": "1:12",
+    "category": "Moonlight Dreams"
+  },
+  {
+    "title": "Dreams Meditation Background",
+    "artist": "SountrixAudio",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774369586/dreams-background_tladvi.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774369547/dreams-background_olq8hx.mp3",
+    "duration": "2:57",
+    "category": "Moonlight Dreams"
+  },
+  {
+    "title": "The Moonlight Lullaby",
+    "artist": "lilex",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774370012/moonlight-lullaby_c6jq0m.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774370056/moonlight-lullaby_mhd9za.mp3",
+    "duration": "3:39",
+    "category": "Moonlight Dreams"
+  },
+  {
+    "title": "Moonlight Meditation",
+    "artist": "MiroMaxMusic",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774370320/moonlight-meditation_gpdj3q.png",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774370287/moonlight-meditation_qbvg5p.mp3",
+    "duration": "3:42",
+    "category": "Moonlight Dreams"
+  },
+  
+  {
+    "title": "Cloudy Thoughts",
+    "artist": "Melodigne",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774370511/cloudy-thoughts_szzxbj.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774370541/cloudy-thoughts_hmq2n0.mp3",
+    "duration": "3:07",
+    "category": "Cloudy Serenity"
+  },
+  {
+    "title": "Cloudy Serenity",
+    "artist": "NastelBom",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774371108/serenity_xxadgu.png",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774371073/serenity_k6hlnp.mp3",
+    "duration": "1:59",
+    "category": "Cloudy Serenity"
+  },
+  {
+    "title": "Cloud Meditation",
+    "artist": "MondaMusic",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774371318/cloud-meditation_wlxhyb.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774371371/cloud-meditation_uvulvz.mp3",
+    "duration": "1:44",
+    "category": "Cloudy Serenity"
+  },
+  {
+    "title": " Cloud Music - New Age Nature",
+    "artist": "Sonican",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774371779/cloud-music_lgw1us.png",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774371742/cloud-music_quxie7.mp3",
+    "duration": "2:24",
+    "category": "Cloudy Serenity"
+  },
+
+  {
+    "title": "Mystical Forest",
+    "artist": "Grand_Projects",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774446680/mystical-forest_sjtcqu.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774446711/mystical-forest_rbhzln.mp3",
+    "duration": "1:43",
+    "category": "Forest Calm"
+  },
+  {
+    "title": "Road in the Forest",
+    "artist": "folk_acoustic",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774447057/road-forest_vawcmp.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774447081/road-forest_zbmvfi.mp3",
+    "duration": "3:05",
+    "category": "Forest Calm"
+  },
+  {
+    "title": "Forest Melody music",
+    "artist": "White_Records",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774447267/forest-melody_ivig25.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774447292/forest-melody_ctcwsx.mp3",
+    "duration": "0:49",
+    "category": "Forest Calm"
+  },
+  {
+    "title": "Forest birds Tibetan meditation",
+    "artist": "MeditativeTiger",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774447569/forest-birds_q2gfqv.png",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774447591/forest-birds_mksnqs.mp3",
+    "duration": "1:52",
+    "category": "Forest Calm"
+  },
+
+  {
+    "title": "Midnight Serenade",
+    "artist": "JScratchonix",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774454137/scratchonix-midnight_btqilj.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774454113/scratchonix-midnight_ugy3wl.mp3",
+    "duration": "3:01",
+    "category": "Midnight Escape"
+  },
+  {
+    "title": "Escape Room",
+    "artist": "alanajordan",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774454316/alanajordan-escape_oauzzy.png",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774454337/alanajordan-escape_kq1idl.mp3",
+    "duration": "2:35",
+    "category": "Midnight Escape"
+  },
+  {
+    "title": "Midnight Pulse Horror BGM",
+    "artist": "omarfarukjafree",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774454540/midnight-pulse_af8ngt.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774454517/midnight-pulse_ardwz0.mp3",
+    "duration": "2:34",
+    "category": "Midnight Escape"
+  },
+  {
+    "title": "Escape from mediocrity",
+    "artist": "MusicWord",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774454718/musicword-escape_ai2owr.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774454741/musicword-escape_kocudv.mp3",
+    "duration": "2:26",
+    "category": "Midnight Escape"
+  },
+  {
+    "title": "Midnight in Paris",
+    "artist": "Jean-Paul-V",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774455001/midnight-paris_ut8d5a.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774454963/midnight-paris_vhzndn.mp3",
+    "duration": "4:00",
+    "category": "Midnight Escape"
+  },
+
+  {
+    "title": "Cinematic Inspiring Landscape",
+    "artist": "Lexin_Music",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774465525/cinematic-landscape_iomy1s.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774465548/cinematic-landscape_em6lwc.mp3",
+    "duration": "2:49",
+    "category": "Dreamland Journey"
+  },
+  {
+    "title": "Dreamland Journey",
+    "artist": "NastelBom",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774465801/dreamland-journey_c7dbft.png",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774465777/dreamland-journey_cgzkgn.mp3",
+    "duration": "2:15",
+    "category": "Dreamland Journey"
+  },
+  {
+    "title": "Spiritual Journey",
+    "artist": "alanajordan",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774466047/spiritual-journey_xxs9g3.png",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774466081/spiritual-journey_quxcod.mp3",
+    "duration": "4:33",
+    "category": "Dreamland Journey"
+  },
+  {
+    "title": "The Journey",
+    "artist": "Lafrey_Music",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774466329/music-journey_cddd3s.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774466303/music-journey_l70s9c.mp3",
+    "duration": "3:47",
+    "category": "Dreamland Journey"
+  },
+  {
+    "title": "Nikita's Waltz",
+    "artist": "geoffharvey",
+    "image": "https://res.cloudinary.com/dfagmkda2/image/upload/v1774466473/nikitax-waltz_lvomvd.jpg",
+    "audio": "https://res.cloudinary.com/dfagmkda2/video/upload/v1774466496/nikitax-waltz_ovarvi.mp3",
+    "duration": "2:17",
+    "category": "Dreamland Journey"
+  }
+]

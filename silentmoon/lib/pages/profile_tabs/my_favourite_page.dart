@@ -64,7 +64,7 @@ class _MyFavouritePageState extends State<MyFavouritePage> {
                               context,
                               MaterialPageRoute(
                                 builder: (_) => Meditation(
-                                  playlist: [item],
+                                  category: item.title,
                                   title: 'My Favourite',
                                 ),
                               ),

@@ -8,6 +8,9 @@ import 'package:silentmoon/pages/profile_tabs/bedtime_reminder_page.dart';
 import 'package:silentmoon/pages/profile_tabs/meditation_reminder_page.dart';
 import 'package:silentmoon/pages/profile_tabs/my_favourite_page.dart';
 import 'package:silentmoon/pages/welcome_page.dart';
+import 'package:silentmoon/app/configs/theme_notifier.dart';
+import 'package:silentmoon/pages/profile_tabs/account_info_page.dart';
+import 'package:silentmoon/pages/profile_tabs/change_password_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -155,8 +158,30 @@ class _ProfilePageState extends State<ProfilePage> {
               _buildOptionContainer(
                 color: Colors.white,
                 items: [
-                  _OptionItem(icon: PhosphorIconsBold.user, title: 'Account Info'),
-                  _OptionItem(icon: PhosphorIconsBold.key, title: 'Change Password'),
+                  _OptionItem(
+                    icon: PhosphorIconsBold.user, 
+                    title: 'Account Info',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const AccountInfoPage(),
+                        ),
+                      ).then((_) => fetchUserName());
+                    },
+                  ),
+                  _OptionItem(
+                    icon: PhosphorIconsBold.key, 
+                    title: 'Change Password',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const ChangePasswordPage(),
+                        ),
+                      );
+                    },
+                  ),
                   _OptionItem(
                     icon: PhosphorIconsBold.heartStraight,
                     title: 'My Favourite',
@@ -220,6 +245,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         onChanged: (value) {
                           setState(() {
                             isDarkMode = value;
+                            ThemeNotifier.themeMode.value = value ? ThemeMode.dark : ThemeMode.light;
                           });
                         },
                       ),

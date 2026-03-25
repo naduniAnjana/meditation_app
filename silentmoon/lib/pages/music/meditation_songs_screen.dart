@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:silentmoon/app/configs/theme.dart';
@@ -9,12 +11,12 @@ import 'package:silentmoon/services/favorites_service.dart';
 enum RepeatMode { off, all, one }
 
 class Meditation extends StatefulWidget {
-  final List<MorningModel> playlist;
+  final String category;
   final String title;
 
   const Meditation({
     super.key, 
-    required this.playlist, 
+    required this.category,
     required this.title
   });
 
@@ -23,6 +25,7 @@ class Meditation extends StatefulWidget {
 }
 
 class _MeditationState extends State<Meditation> {
+  int currentIndex = 0;
   double progress = 0.0;
   bool isPlaying = false;
   bool isFavorite = false;
@@ -31,21 +34,19 @@ class _MeditationState extends State<Meditation> {
   StreamSubscription? _positionSubscription;
   StreamSubscription? _durationSubscription;
   StreamSubscription? _playerStateSubscription;
-  
-  int currentIndex = 0;
 
   Duration position = Duration.zero;
   Duration duration = Duration.zero;
 
   RepeatMode repeatMode = RepeatMode.off;
 
-  late List<MorningModel> playlist;
+  List<MorningModel> playlist = [];
+  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    playlist = widget.playlist;
-    _checkFavoriteStatus();
+    fetchSongs();
 
     _positionSubscription = _audioPlayer.positionStream.listen((p) {
       if (mounted) setState(() => position = p);
@@ -77,11 +78,36 @@ class _MeditationState extends State<Meditation> {
     });
   }
 
+  Future<void> fetchSongs() async {
+    final String response =
+        await rootBundle.loadString('assets/music.json');
+    final data = json.decode(response);
+
+    final allSongs = data.map<MorningModel>((item) {
+      return MorningModel(
+        title: item['title'],
+        artist: item['artist'],
+        image: item['image'],
+        audio: item['audio'],
+        duration: item['duration'],
+        category: item['category'],
+      );
+    }).toList();
+
+    playlist = allSongs
+        .where((song) => song.category == widget.category)
+        .toList();
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   Future<void> playAudio(int index) async {
     final track = playlist[index];
 
     if (currentIndex != index) {
-      await _audioPlayer.setAsset(track.audio);
+      await _audioPlayer.setUrl(track.audio);
       currentIndex = index;
       position = Duration.zero;
       _checkFavoriteStatus();
@@ -161,6 +187,17 @@ class _MeditationState extends State<Meditation> {
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (playlist.isEmpty) {
+      return const Scaffold(
+        body: Center(child: Text("No songs available")),
+      );
+    }
     final currentTrack = playlist[currentIndex];
 
     return Scaffold(
@@ -221,7 +258,7 @@ class _MeditationState extends State<Meditation> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
                             image: DecorationImage(
-                              image: AssetImage(currentTrack.image),
+                              image: NetworkImage(currentTrack.image),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -450,7 +487,7 @@ class _MeditationState extends State<Meditation> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                  image: AssetImage(image),
+                  image: NetworkImage(image),
                   fit: BoxFit.cover,
                 ),
               ),

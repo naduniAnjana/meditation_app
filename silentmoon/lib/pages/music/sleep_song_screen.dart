@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:silentmoon/app/configs/theme.dart';
@@ -9,12 +11,12 @@ import 'package:silentmoon/services/favorites_service.dart';
 enum RepeatMode { off, all, one }
 
 class SleepSongScreen extends StatefulWidget {
-  final List<MorningModel> playlist;
+  final String category;
   final String title;
 
   const SleepSongScreen({
     super.key, 
-    required this.playlist, 
+    required this.category, 
     required this.title
   });
 
@@ -39,13 +41,13 @@ class _SleepSongScreenState extends State<SleepSongScreen> {
 
   RepeatMode repeatMode = RepeatMode.off;
 
-  late List<MorningModel> playlist;
+  List<MorningModel> playlist = [];
+  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    playlist = widget.playlist;
-    _checkFavoriteStatus();
+    fetchSongs();
 
     _positionSubscription = _audioPlayer.positionStream.listen((p) {
       if (mounted) setState(() => position = p);
@@ -77,11 +79,40 @@ class _SleepSongScreenState extends State<SleepSongScreen> {
     });
   }
 
+  Future<void> fetchSongs() async {
+    final String response =
+        await rootBundle.loadString('assets/sleep.json');
+    final data = json.decode(response);
+
+    final allSongs = data.map<MorningModel>((item) {
+      return MorningModel(
+        title: item['title'],
+        artist: item['artist'],
+        image: item['image'],
+        audio: item['audio'],
+        duration: item['duration'],
+        category: item['category'],
+      );
+    }).toList();
+
+    playlist = allSongs
+        .where((song) => song.category == widget.category)
+        .toList();
+
+    setState(() {
+      isLoading = false;
+    });
+    
+    if (playlist.isNotEmpty) {
+      _checkFavoriteStatus();
+    }
+  }
+
   Future<void> playAudio(int index) async {
     final track = playlist[index];
 
     if (currentIndex != index) {
-      await _audioPlayer.setAsset(track.audio);
+      await _audioPlayer.setUrl(track.audio);
       currentIndex = index;
       position = Duration.zero;
       _checkFavoriteStatus();
@@ -161,6 +192,19 @@ class _SleepSongScreenState extends State<SleepSongScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return const Scaffold(
+        backgroundColor: Color(0xFF092E77),
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (playlist.isEmpty) {
+      return const Scaffold(
+        backgroundColor: Color(0xFF092E77),
+        body: Center(child: Text("No songs available", style: TextStyle(color: Colors.white))),
+      );
+    }
     final currentTrack = playlist[currentIndex];
 
     return Scaffold(
@@ -222,7 +266,7 @@ class _SleepSongScreenState extends State<SleepSongScreen> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
                             image: DecorationImage(
-                              image: AssetImage(currentTrack.image),
+                              image: NetworkImage(currentTrack.image),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -451,7 +495,7 @@ class _SleepSongScreenState extends State<SleepSongScreen> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                  image: AssetImage(image),
+                  image: NetworkImage(image),
                   fit: BoxFit.cover,
                 ),
               ),
