@@ -74,23 +74,6 @@ class _MeditatePageState extends State<MeditatePage> {
     return null;
   }
 
-  // Send to Backend & Get AI Response
-  // Future<String> _getAIResponse(String audioPath) async {
-  //   final uri = Uri.parse('http://192.168.1.168:8000/predict');
-  //   var request = http.MultipartRequest('POST', uri);
-  //   request.files.add(await http.MultipartFile.fromPath('file', audioPath));
-
-  //   final streamedResponse = await request.send();
-  //   final response = await http.Response.fromStream(streamedResponse);
-
-  //   if (response.statusCode == 200) {
-  //     final data = jsonDecode(response.body);
-  //     return data['ai_response'];
-  //   } else {
-  //     throw Exception("Server Error");
-  //   }
-  // }
-
   Future<String> _getAIResponse(String audioPath) async {
     final uri = Uri.parse('http://192.168.1.168:8000/predict');
 
@@ -125,10 +108,6 @@ class _MeditatePageState extends State<MeditatePage> {
         await _tts.setSpeechRate(0.4); 
         await _tts.speak(responseText);
       }
-      // } catch (e) {
-      //   setState(() => _status = "Error: Try again");
-      //   debugPrint(e.toString());
-      // }
     } catch (e) {
       debugPrint("FULL ERROR: $e");
       setState(() => _status = "Error: $e");
