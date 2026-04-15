@@ -40,28 +40,34 @@ class _LoginPageState extends State<LoginPage> {
         password: password,
       );
 
+      if (!mounted) return;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const UserWelcomePage()),
       );
-    } on FirebaseAuthException catch (e) {
-      String message;
-
-      switch (e.code) {
-        case 'invalid-credential':
-          message = 'Incorrect email or password.';
-          break;
-        case 'invalid-email':
-          message = 'Invalid email address.';
-          break;
-        case 'user-disabled':
-          message = 'This account has been disabled.';
-          break;
-        default:
-          message = 'Login failed. Please try again.';
+    } catch (e, stacktrace) {
+      debugPrint('LOGIN ERROR: $e');
+      debugPrint('STACKTRACE: $stacktrace');
+      if (!mounted) return;
+      if (e is FirebaseAuthException) {
+        String message;
+        switch (e.code) {
+          case 'invalid-credential':
+            message = 'Incorrect email or password.';
+            break;
+          case 'invalid-email':
+            message = 'Invalid email address.';
+            break;
+          case 'user-disabled':
+            message = 'This account has been disabled.';
+            break;
+          default:
+            message = 'Login failed. Please try again.';
+        }
+        DialogHelper.showErrorDialog(context, message);
+      } else {
+        DialogHelper.showErrorDialog(context, 'Login failed: $e');
       }
-
-      DialogHelper.showErrorDialog(context, message);
     }
   }
 
@@ -99,13 +105,17 @@ class _LoginPageState extends State<LoginPage> {
       });
     }
 
+    if (!mounted) return;
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (_) => const UserWelcomePage()),
     );
-  } catch (e) {
+  } catch (e, stacktrace) {
+    debugPrint('GOOGLE SIGNIN ERROR: $e');
+    debugPrint('STACKTRACE: $stacktrace');
+    if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Google sign-in failed')),
+      SnackBar(content: Text('Google sign-in failed: $e')),
     );
   }
 }

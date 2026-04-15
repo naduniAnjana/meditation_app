@@ -55,14 +55,18 @@ class _SignupPageState extends State<SignupPage> {
         'createdAt': DateTime.now(),
       });
 
+      if (!mounted) return;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const UserWelcomePage()),
       );
-    } on FirebaseAuthException catch (e) {
+    } catch (e, stacktrace) {
+      debugPrint('SIGNUP ERROR: $e');
+      debugPrint('STACKTRACE: $stacktrace');
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text(e.message ?? "Signup failed")));
+      ).showSnackBar(SnackBar(content: Text("Signup failed: $e")));
     }
   }
 
@@ -100,13 +104,17 @@ class _SignupPageState extends State<SignupPage> {
       });
     }
 
+    if (!mounted) return;
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (_) => const UserWelcomePage()),
     );
-  } catch (e) {
+  } catch (e, stacktrace) {
+    debugPrint('GOOGLE SIGNIN ERROR: $e');
+    debugPrint('STACKTRACE: $stacktrace');
+    if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Google sign-in failed')),
+      SnackBar(content: Text('Google sign-in failed: $e')),
     );
   }
 }

@@ -33,15 +33,18 @@ class _UserWelcomePageState extends State<UserWelcomePage> {
 
         if (userDoc.exists && userDoc.data() != null) {
           var data = userDoc.data() as Map<String, dynamic>;
+          if (!mounted) return;
           setState(() {
             userName = data['username'] ?? currentUser.displayName ?? '';
           });
         } else {
+          if (!mounted) return;
           setState(() {
             userName = currentUser.displayName ?? '';
           });
         }
       } catch (e) {
+        if (!mounted) return;
         setState(() {
           userName = currentUser.displayName ?? '';
         });
@@ -126,7 +129,7 @@ class _UserWelcomePageState extends State<UserWelcomePage> {
         
             // image
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 70),
+              padding: const EdgeInsets.symmetric(vertical: 50),
               child: Image.asset('assets/images/app/medi.png', width: 350, height: 350),
             ),
         

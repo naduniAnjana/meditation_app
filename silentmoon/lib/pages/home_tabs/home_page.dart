@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
               'Good Morning, ${userName.isNotEmpty ? _capitalize(userName) : "User"}',
               style: const TextStyle(
                 color: ThemeConfigs.color14,
-                fontSize: 25,
+                fontSize: 22,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          const SizedBox(height: 20),
+          const SizedBox(height: 25),
 
           // basics and relaxation containers
           Padding(
