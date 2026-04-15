@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:http/http.dart' as http;
@@ -52,30 +53,61 @@ class _MeditatePageState extends State<MeditatePage> {
 
     if (await _recorder.hasPermission()) {
       await _recorder.start(
-        const RecordConfig(encoder: AudioEncoder.wav, sampleRate: 16000),
+        const RecordConfig(
+          encoder: AudioEncoder.wav,
+          sampleRate: 16000,
+          numChannels: 1,
+        ),
         path: path,
       );
-      
+
       await Future.delayed(const Duration(seconds: 3));
-      return await _recorder.stop();
+      final result = await _recorder.stop();
+
+      if (result == null || !File(result).existsSync()) {
+        throw Exception("Recording failed or file not created");
+      }
+
+      print("Recorded file path: $result");
+      return result;
     }
     return null;
   }
 
   // Send to Backend & Get AI Response
+  // Future<String> _getAIResponse(String audioPath) async {
+  //   final uri = Uri.parse('http://192.168.1.168:8000/predict');
+  //   var request = http.MultipartRequest('POST', uri);
+  //   request.files.add(await http.MultipartFile.fromPath('file', audioPath));
+
+  //   final streamedResponse = await request.send();
+  //   final response = await http.Response.fromStream(streamedResponse);
+
+  //   if (response.statusCode == 200) {
+  //     final data = jsonDecode(response.body);
+  //     return data['ai_response'];
+  //   } else {
+  //     throw Exception("Server Error");
+  //   }
+  // }
+
   Future<String> _getAIResponse(String audioPath) async {
     final uri = Uri.parse('http://192.168.1.168:8000/predict');
+
     var request = http.MultipartRequest('POST', uri);
     request.files.add(await http.MultipartFile.fromPath('file', audioPath));
 
     final streamedResponse = await request.send();
     final response = await http.Response.fromStream(streamedResponse);
 
+    print("STATUS: ${response.statusCode}");
+    print("BODY: ${response.body}");
+
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      return data['ai_response']; 
+      return data['ai_response'];
     } else {
-      throw Exception("Server Error");
+      throw Exception("Server Error: ${response.body}");
     }
   }
 
@@ -93,9 +125,13 @@ class _MeditatePageState extends State<MeditatePage> {
         await _tts.setSpeechRate(0.4); 
         await _tts.speak(responseText);
       }
+      // } catch (e) {
+      //   setState(() => _status = "Error: Try again");
+      //   debugPrint(e.toString());
+      // }
     } catch (e) {
-      setState(() => _status = "Error: Try again");
-      debugPrint(e.toString());
+      debugPrint("FULL ERROR: $e");
+      setState(() => _status = "Error: $e");
     }
   }
 
