@@ -51,6 +51,7 @@ flutter:
      - assets/models/
      - assets/music.json
      - assets/sleep.json
+     - assets/audio/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

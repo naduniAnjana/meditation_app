@@ -4,18 +4,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:http/http.dart' as http;
+import 'package:just_audio/just_audio.dart';
 import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:record/record.dart';
 import 'package:silentmoon/app/configs/theme.dart';
-
-void main() {
-  runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: MeditatePage(),
-  ));
-}
 
 class MeditatePage extends StatefulWidget {
   const MeditatePage({super.key});
@@ -29,12 +23,28 @@ class _MeditatePageState extends State<MeditatePage> {
   final FlutterTts _tts = FlutterTts();
   final ScrollController _scrollController = ScrollController();
 
+  final AudioPlayer _musicPlayer = AudioPlayer();
+
   String _status = "Tap mic to speak";
   bool _isSpeaking = false;
   bool _isLoading = false;
   String? _sessionId;
 
+  bool isMusicPlaying = false;
+
   final List<Map<String, String>> _messages = [];
+
+  Map<String, dynamic>? recommendedTrack;
+
+  final Map<String, String> trackAssetMap = {
+    "healing_piano": "assets/audio/healing_piano.mp3",
+    "exam_recovery": "assets/audio/exam_recovery.mp3",
+    "deep_breath": "assets/audio/deep_breath.mp3",
+    "calm_reset": "assets/audio/calm_reset.mp3",
+    "soft_hope": "assets/audio/soft_hope.mp3",
+    "sleep_peace": "assets/audio/sleep_peace.mp3",
+    "confidence_light": "assets/audio/confidence_light.mp3",
+  };
 
   @override
   void initState() {
@@ -67,6 +77,15 @@ class _MeditatePageState extends State<MeditatePage> {
       setState(() {
         _isSpeaking = false;
         _status = "Tap mic to speak";
+      });
+    });
+  }
+
+  void initMusicPlayer() {
+    _musicPlayer.playerStateStream.listen((state) {
+      if (!mounted) return;
+      setState(() {
+        isMusicPlaying = state.playing;
       });
     });
   }
@@ -160,6 +179,7 @@ class _MeditatePageState extends State<MeditatePage> {
       final userText = data['user_text']?.toString() ?? "";
       final aiResponse = data['ai_response']?.toString() ?? "I am here with you.";
       final emotion = data['emotion']?.toString() ?? "unknown";
+      recommendedTrack = data['recommended_track'];
 
       setState(() {
         _sessionId = sessionId;
@@ -175,6 +195,10 @@ class _MeditatePageState extends State<MeditatePage> {
           "role": "assistant",
           "text": aiResponse,
         });
+
+        if (recommendedTrack != null && recommendedTrack is Map<String, dynamic>) {
+          recommendedTrack = recommendedTrack;
+        }
 
         _status = "AI Speaking...";
       });
@@ -201,6 +225,42 @@ class _MeditatePageState extends State<MeditatePage> {
     }
   }
 
+  Future<void> toggleRecommendedMusic() async {
+    if (recommendedTrack == null) return;
+
+    final trackKey = recommendedTrack!['track_key']?.toString();
+    if (trackKey == null || !trackAssetMap.containsKey(trackKey)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Music file not found in assets")),
+      );
+      return;
+    }
+
+    try {
+      if (isMusicPlaying) {
+        await _musicPlayer.pause();
+        return;
+      }
+
+      await _tts.stop();
+
+      final assetPath = trackAssetMap[trackKey]!;
+      await _musicPlayer.setAsset(assetPath);
+      await _musicPlayer.play();
+    } catch (e) {
+      debugPrint("MUSIC ERROR: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Music play error: $e")),
+      );
+    }
+  }
+
+  Future<void> stopMusic() async {
+    try {
+      await _musicPlayer.stop();
+    } catch (_) {}
+  }
+
   Future<void> _clearConversation() async {
     try {
       if (_sessionId != null) {
@@ -210,10 +270,13 @@ class _MeditatePageState extends State<MeditatePage> {
     } catch (_) {}
 
     await _tts.stop();
+    await stopMusic();
 
     setState(() {
       _sessionId = null;
       _isSpeaking = false;
+      isMusicPlaying = false;
+      recommendedTrack = null;
       _status = "Tap mic to speak";
       _messages.clear();
       _messages.add({
@@ -271,10 +334,96 @@ class _MeditatePageState extends State<MeditatePage> {
     );
   }
 
+  Widget buildRecommendedTrackCard() {
+    if (recommendedTrack == null) return const SizedBox.shrink();
+
+    final title = recommendedTrack!['title']?.toString() ?? "Recommended Track";
+    final subtitle = recommendedTrack!['subtitle']?.toString() ?? "";
+    final reason = recommendedTrack!['reason']?.toString() ?? "";
+
+    return Container(
+      margin: const EdgeInsets.fromLTRB(14, 10, 14, 18),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 8,
+            spreadRadius: 1,
+          )
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Recommended Music",
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: ThemeConfigs.color19,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: ThemeConfigs.color20,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            subtitle,
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.grey,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            reason,
+            style: const TextStyle(
+              fontSize: 14,
+              color: ThemeConfigs.color25,
+            ),
+          ),
+          const SizedBox(height: 14),
+          Row(
+            children: [
+              ElevatedButton.icon(
+                onPressed: toggleRecommendedMusic,
+                icon: Icon(isMusicPlaying ? Icons.pause : Icons.play_arrow),
+                label: Text(isMusicPlaying ? "Pause" : "Play"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: ThemeConfigs.color3,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              OutlinedButton.icon(
+                onPressed: stopMusic,
+                icon: const Icon(Icons.stop),
+                label: const Text("Stop"),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   void dispose() {
     _recorder.dispose();
     _tts.stop();
+    _musicPlayer.dispose();
     _scrollController.dispose();
     super.dispose();
   }
@@ -300,7 +449,6 @@ class _MeditatePageState extends State<MeditatePage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 5),
         
               Lottie.asset(
                 'assets/images/app/yoga.json',
@@ -369,10 +517,10 @@ class _MeditatePageState extends State<MeditatePage> {
               Expanded(
                 child: ListView(
                   controller: _scrollController,
-                  padding: const EdgeInsets.only(bottom: 10),
+                  // padding: const EdgeInsets.only(bottom: 10),
                   children: [
                     ..._messages.map(_buildMessageBubble),
-                    const SizedBox(height: 10),
+                    buildRecommendedTrackCard(),
                     const SizedBox(height: 10),
                   ],
                 ),
